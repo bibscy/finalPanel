@@ -31,7 +31,7 @@ override func viewDidLoad() {
       FullData.uid = enterDataTextField.text!
     }
     
-  
+    
 // convert the value from the text field to Date object then convert it to a timestamp
 func convertDate(inputStringDate:String) -> Int {
     

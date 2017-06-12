@@ -20,6 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // use Firebase library to configure APIs
         FIRApp.configure()
+        
+        FIRAuth.auth()?.signIn(withEmail: "johnmm@gmail.com", password: "123456", completion: { (user, error) in
+            if error != nil {
+                print("line 26 AppDelegate \(String(describing: error?.localizedDescription))")
+            }
+        })
 
 //set Stripe test key
 Stripe.setDefaultPublishableKey("pk_test_liyyCiUk9Xm196cFDPYZA28K")
@@ -27,6 +33,11 @@ Stripe.setDefaultPublishableKey("pk_test_liyyCiUk9Xm196cFDPYZA28K")
 
         return true
     }
+    
+    
+    
+    
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

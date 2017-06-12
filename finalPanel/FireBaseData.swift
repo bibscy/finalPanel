@@ -242,38 +242,38 @@ Key:String = "") {
 }
     
 
-    func toAnyObject() -> AnyObject {
-        
-        var someDict = [String : AnyObject]()
-        someDict["BookingAmount"] = self.BookingAmount as AnyObject?
-        someDict["BookingNumber"] = self.BookingNumber as AnyObject?
-        someDict["PostCode"] = self.PostCode as AnyObject?
-        someDict["SelectedBathRow"] = self.SelectedBathRow as AnyObject?
-        someDict["SelectedBedRow"] = self.SelectedBedRow as AnyObject?
-        someDict["DateAndTime"] = self.DateAndTime as AnyObject?
-        someDict["TimeStampDateAndTime"] = self.TimeStampDateAndTime as AnyObject?
-        someDict["TimeStampBookingSavedInDB"] = self.TimeStampBookingSavedInDB as AnyObject?
-        someDict["BookingStatusClient"] = self.BookingStatusClient as AnyObject?
-        someDict["BookingStatusAdmin"] = self.BookingStatusAdmin as AnyObject?
-        someDict["BookingCompleted"] = self.BookingCompleted as AnyObject?
-        someDict["FrequencyName"] = self.FrequencyName as AnyObject?
-        someDict["FrequecyAmount"] = self.FrequecyAmount as AnyObject?
-        someDict["insideCabinets"] = self.insideCabinets as AnyObject?
-        someDict["insideFridge"] = self.insideFridge as AnyObject?
-        someDict["insideOven"] = self.insideOven  as AnyObject?
-        someDict["laundryWash"] = self.laundryWash as AnyObject?
-        someDict["interiorWindows"] = self.interiorWindows as AnyObject?
-        someDict["FullName"] = self.FullName as AnyObject?
-        someDict["SuppliesName"] = self.SuppliesName as AnyObject?
-        someDict["SuppliesAmount"] = self.SuppliesAmount as AnyObject?
-        someDict["FlatNumber"] = self.FlatNumber as AnyObject?
-        someDict["StreetAddress"] = self.StreetAddress as AnyObject?
-        someDict["PhoneNumber"] = self.PhoneNumber as AnyObject?
-        someDict["EmailAddress"] = self.EmailAddress as AnyObject?
-        
-        return someDict as AnyObject
-        
-    }
+//    func toAnyObject() -> AnyObject {
+//        
+//        var someDict = [String : AnyObject]()
+//        someDict["BookingAmount"] = self.BookingAmount as AnyObject?
+//        someDict["BookingNumber"] = self.BookingNumber as AnyObject?
+//        someDict["PostCode"] = self.PostCode as AnyObject?
+//        someDict["SelectedBathRow"] = self.SelectedBathRow as AnyObject?
+//        someDict["SelectedBedRow"] = self.SelectedBedRow as AnyObject?
+//        someDict["DateAndTime"] = self.DateAndTime as AnyObject?
+//        someDict["TimeStampDateAndTime"] = self.TimeStampDateAndTime as AnyObject?
+//        someDict["TimeStampBookingSavedInDB"] = self.TimeStampBookingSavedInDB as AnyObject?
+//        someDict["BookingStatusClient"] = self.BookingStatusClient as AnyObject?
+//        someDict["BookingStatusAdmin"] = self.BookingStatusAdmin as AnyObject?
+//        someDict["BookingCompleted"] = self.BookingCompleted as AnyObject?
+//        someDict["FrequencyName"] = self.FrequencyName as AnyObject?
+//        someDict["FrequecyAmount"] = self.FrequecyAmount as AnyObject?
+//        someDict["insideCabinets"] = self.insideCabinets as AnyObject?
+//        someDict["insideFridge"] = self.insideFridge as AnyObject?
+//        someDict["insideOven"] = self.insideOven  as AnyObject?
+//        someDict["laundryWash"] = self.laundryWash as AnyObject?
+//        someDict["interiorWindows"] = self.interiorWindows as AnyObject?
+//        someDict["FullName"] = self.FullName as AnyObject?
+//        someDict["SuppliesName"] = self.SuppliesName as AnyObject?
+//        someDict["SuppliesAmount"] = self.SuppliesAmount as AnyObject?
+//        someDict["FlatNumber"] = self.FlatNumber as AnyObject?
+//        someDict["StreetAddress"] = self.StreetAddress as AnyObject?
+//        someDict["PhoneNumber"] = self.PhoneNumber as AnyObject?
+//        someDict["EmailAddress"] = self.EmailAddress as AnyObject?
+//        
+//        return someDict as AnyObject
+//        
+//    }
  
 
 }

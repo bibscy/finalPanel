@@ -30,7 +30,7 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
       
         self.splitViewController?.delegate = self
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
-               startObservingDB() // observe the database for value changes
+               startObservingDB() //observe the database for value changes
     } // end of viewDidLoad
     
     
@@ -116,6 +116,11 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
         let booking = bookingInfo[indexPath.row]
          cell.textLabel?.numberOfLines = 0
         cell.textLabel?.text = "Booking# " + booking.BookingNumber + "\n" + booking.DateAndTime + "\n" + booking.PostCode + "\n" + booking.Key
+        + "\n" + booking.BookingStatusClient
+        + "\n" + booking.BookingCompleted
+        + "\n" + booking.BookingStatusAdmin
+        
+print("the status for booking#                                        \(booking.BookingNumber) is BookingStatusClient \(booking.BookingStatusClient), booking.BookingCompleted \(booking.BookingCompleted), booking.BookingStatusAdmin \(booking.BookingStatusAdmin)")
         
         //Active bookings     Clear color
         if booking.BookingStatusClient == true &&

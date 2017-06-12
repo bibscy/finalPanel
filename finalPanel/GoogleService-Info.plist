@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>232810726180-q53vfd2q3jedd9fbmk3cs9em4ic4mb6a.apps.googleusercontent.com</string>
+	<string>820015687545-42vklp94reavi6li6bojrhlhcraoofc6.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.232810726180-q53vfd2q3jedd9fbmk3cs9em4ic4mb6a</string>
+	<string>com.googleusercontent.apps.820015687545-42vklp94reavi6li6bojrhlhcraoofc6</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA9eJ-_ijlWY2fo-IIwjU8QSIIYORMQcZo</string>
+	<string>AIzaSyCNt5CAyUf2T3UunH6-ci_WyvOqCl_RzXI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>232810726180</string>
+	<string>820015687545</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.brev.CleaningApp</string>
+	<string>com.vividapartments.Brev</string>
 	<key>PROJECT_ID</key>
-	<string>fir-30c9e</string>
+	<string>brev-72e08</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fir-30c9e.appspot.com</string>
+	<string>brev-72e08.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:232810726180:ios:bd6407887b8dbeef</string>
+	<string>1:820015687545:ios:71df5d4540a8ad27</string>
 	<key>DATABASE_URL</key>
-	<string>https://fir-30c9e.firebaseio.com</string>
+	<string>https://brev-72e08.firebaseio.com</string>
 </dict>
 </plist>
