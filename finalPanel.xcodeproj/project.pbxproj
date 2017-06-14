@@ -219,7 +219,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Appfish;
 				TargetAttributes = {
 					A34AAFBC1E05E1220076E84A = {
@@ -446,6 +446,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4333D8BA474EEA0521B74E4A /* Pods-finalPanel.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = E574TGWECG;
 				INFOPLIST_FILE = finalPanel/Info.plist;
@@ -461,6 +462,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 923E03441A33AA8EAE93E3E5 /* Pods-finalPanel.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = E574TGWECG;
 				INFOPLIST_FILE = finalPanel/Info.plist;

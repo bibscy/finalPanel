@@ -29,7 +29,7 @@ class RootController_1: UITableViewController, UISplitViewControllerDelegate {
         
         self.splitViewController?.delegate = self
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
-        startObservingDB() // observe the database for value changes
+               startObservingDB() // observe the database for value changes
     } // end of viewDidLoad
     
     
@@ -106,6 +106,11 @@ class RootController_1: UITableViewController, UISplitViewControllerDelegate {
 } // end of if condition
        
         
+        // convert bookingInfo of type FIrebaseData to Array of Dictionaries
+        let arrayOfDictionary = self.bookingInfo.flatMap { $0.toAnyObject() as? [String:Any] }
+               print("arrayof Dict is \(arrayOfDictionary)")
+
+        
             print("OurBooking is___ \(self.bookingInfo)")
             // reload the data every time FIRDataEventType is triggered by value changes in Database
             self.tableView.reloadData()
@@ -146,13 +151,12 @@ class RootController_1: UITableViewController, UISplitViewControllerDelegate {
         cell.textLabel?.text = "Booking# " + booking.BookingNumber + "\n" + booking.DateAndTime + "\n" + booking.PostCode + "\n" + booking.Key
       
   
-    
+    print("the status for booking#                                        \(booking.BookingNumber) is BookingStatusClient \(booking.BookingStatusClient), booking.BookingCompleted \(booking.BookingCompleted), booking.BookingStatusAdmin \(booking.BookingStatusAdmin)")
         
        //Active bookings     Clear color
  if booking.BookingStatusClient == true &&
            booking.BookingCompleted == false &&
-                 booking.BookingStatusAdmin == false &&
-                   booking.BookingStatusClient == false {
+                 booking.BookingStatusAdmin == false {
                           cell.backgroundColor = UIColor.clear
 } else if
         //Cancelled bookings by user  Red color
@@ -229,13 +233,61 @@ class RootController_1: UITableViewController, UISplitViewControllerDelegate {
             vc.bookingNumberReceived = bookingSelected.BookingNumber
             
             // assign the booking number for the selected row to a global variable to use it later
-FullData.finalBookingNumber = bookingSelected.BookingNumber
-FullData.finalTimeStampDateAndTime = bookingSelected.TimeStampDateAndTime
-FullData.finalBookingAmount = bookingSelected.BookingAmount
-FullData.finalPaymentID = bookingSelected.PaymentID
-FullData.finalFirebaseUserID = bookingSelected.FirebaseUserID
-FullData.finalAdminBookingStatus = bookingSelected.BookingStatusAdmin
-FullData.finalStripeCustomerID = bookingSelected.Key
+            FullData.finalBookingNumber = bookingSelected.BookingNumber
+            FullData.finalTimeStampDateAndTime = bookingSelected.TimeStampDateAndTime
+            FullData.finalBookingAmount = bookingSelected.BookingAmount
+            FullData.finalPaymentID = bookingSelected.PaymentID
+            FullData.finalFirebaseUserID = bookingSelected.FirebaseUserID
+            
+            FullData.finalEmailAddress = bookingSelected.EmailAddress
+            FullData.finalStripeCustomerID = bookingSelected.Key
+            
+            FullData.finalAdminBookingStatus = bookingSelected.BookingStatusAdmin
+            FullData.finalClientBookingStatus = bookingSelected.BookingStatusClient
+            FullData.finalBookingCompleted = bookingSelected.BookingCompleted
+
+ 
+    if bookingSelected.DoormanOption != nil {
+                FullData.finalDoormanOption = bookingSelected.DoormanOption
+            }
+            
+            
+            if bookingSelected.EntryInstructions != nil {
+                FullData.finalEntryInstructions = bookingSelected.EntryInstructions
+            }
+            
+            if bookingSelected.NoteInstructions != nil {
+                FullData.finalNoteInstructions = bookingSelected.NoteInstructions
+            }
+            
+            if bookingSelected.CostToCancelAdmin != nil {
+                FullData.costToCancelAdmin = bookingSelected.CostToCancelAdmin
+            }
+            
+            
+            if bookingSelected.CostToCancelClient != nil {
+                FullData.costToCancelClient = bookingSelected.CostToCancelClient
+            }
+            
+            if bookingSelected.CostToRescheduleAdmin != nil {
+                FullData.costToRescheduleAdmin = bookingSelected.CostToRescheduleAdmin
+            }
+            
+            if bookingSelected.CostToRescheduleClient != nil {
+                FullData.costToRescheduleClient = bookingSelected.CostToRescheduleClient
+            }
+            
+            
+            
+            // if at least one of these values != nil,  in DetailViewController  assign true value to bookingCancelled and in DetailViewController hide Reschedule/Cancel buttons
+            
+            if bookingSelected.CostToCancelAdmin != nil
+                || bookingSelected.CostToCancelClient != nil {
+                print("bookingSelected.CostToCancelAdmin \(bookingSelected.CostToCancelAdmin)  and \(bookingSelected.CostToCancelClient)")
+                FullData.bookingCancelled = true
+            } else {
+                FullData.bookingCancelled = false
+            }
 
   
             //after all tasks above have been completed, deselect row and segue to DetailViewController
@@ -244,12 +296,14 @@ FullData.finalStripeCustomerID = bookingSelected.Key
         }
     }
     
+    
     // MARK: - UISplitViewControllerDelegate
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        
         return true
     }
+    
+    
     
 // Swipe to Delete and the More button
     

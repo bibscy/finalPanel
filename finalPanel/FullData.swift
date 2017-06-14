@@ -25,11 +25,31 @@ struct FullData {
     static var  finalPaymentID:String!
     static var  finalFirebaseUserID:String!
     static var  finalStripeCustomerID:String!
-
     
+    static var finalDoormanOption:String!
+    static var finalEntryInstructions:String = "No"
+    static var finalNoteInstructions:String = "No"
+    static var bookingCancelled:Bool = false
+    
+    static var costToCancelAdmin:String!
+    static var costToCancelClient:String!
+    
+    static var costToRescheduleAdmin:String!
+    static var costToRescheduleClient:String!
     
     static var finalTimeStampDateAndTime:Int!
     
     static var fromDate:Int!
     static var toDate:Int!
+    
+  
+    
+    
 }
+
+
+
+
+
+
+

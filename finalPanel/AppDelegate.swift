@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // use Firebase library to configure APIs
         FIRApp.configure()
         
+        //log in a user so that we can read the database
         FIRAuth.auth()?.signIn(withEmail: "johnmm@gmail.com", password: "123456", completion: { (user, error) in
             if error != nil {
                 print("line 26 AppDelegate \(String(describing: error?.localizedDescription))")

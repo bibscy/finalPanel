@@ -4,7 +4,7 @@
 //
 //  Created by Bogdan Barbulescu on 14/12/2016.
 //  Copyright © 2016 Appfish. All rights reserved.
-//
+
 
 import UIKit
 import Foundation
@@ -17,7 +17,8 @@ class RescheduleCompleted: UIViewController {
     
     var currentDate = Date()
     var TimeStampBookingRescheduledAdmin:Int!
-    let urlString = "http://0.0.0.0:8080/rescheduleadmin/stripe"
+    let urlString = "https://secure-garden-28988.herokuapp.com/rescheduleadmin/stripe"
+    // "http://0.0.0.0:8080/rescheduleadmin/stripe"
     var params = [String:Any]()
     
     

@@ -36,6 +36,19 @@ struct FireBaseData {
     var BookingStatusAdmin:Bool!
     var BookingCompleted:Bool!
     
+    
+    //used in RootController and RootController1 to determine if the booking has already been cancelled or not
+    var CostToCancelClient:String!
+    var CostToCancelAdmin:String!
+    
+    var CostToRescheduleAdmin:String!
+    var CostToRescheduleClient:String!
+    
+    var DoormanOption:String!
+    var EntryInstructions:String!
+    var NoteInstructions:String!
+
+    
     var FrequencyName:String!
     var FrequecyAmount:Int!
     var insideCabinets:Bool!
@@ -172,6 +185,8 @@ Key:String = "") {
             BookingStatusClient = Bool(BookingStatusClientContent)
         }
         
+        
+        
         if let BookingStatusAdminContent = (snapshot.value! as? NSDictionary)?["BookingStatusAdmin"] as? String {
             BookingStatusAdmin = Bool(BookingStatusAdminContent)
         }
@@ -180,6 +195,42 @@ Key:String = "") {
             BookingCompleted = Bool(BookingCompletedContent)
         }
 
+        
+        
+        if let costToCancelCient = (snapshot.value! as? NSDictionary)?["CostToCancelClient"] as? String {
+            CostToCancelClient = costToCancelCient
+        }
+        
+        
+        if let costToCancelAdmin = (snapshot.value! as? NSDictionary)?["CostToCancelAdmin"] as? String {
+            CostToCancelAdmin  = costToCancelAdmin
+        }
+        
+        
+        if let costToRescheduleAdmin = (snapshot.value! as? NSDictionary)?["CostToRescheduleAdmin"] as? String {
+            CostToRescheduleAdmin = costToRescheduleAdmin
+        }
+        
+        if let costToRescheduleClient = (snapshot.value! as? NSDictionary)?["CostToRescheduleClient"] as? String {
+            CostToRescheduleClient = costToRescheduleClient
+        }
+     
+        
+        
+        
+   
+        
+        if let doormanOption = (snapshot.value! as? NSDictionary)?["DoormanOption"] as? String {
+            DoormanOption = doormanOption
+        }
+        
+        if let entryInstructions = (snapshot.value! as? NSDictionary)?["EntryInstructions"] as? String {
+            EntryInstructions = entryInstructions
+        }
+        
+        if let noteInstructions = (snapshot.value! as? NSDictionary)?["NoteInstructions"] as? String {
+            NoteInstructions = noteInstructions
+        }
         
         
         
@@ -241,39 +292,54 @@ Key:String = "") {
         }
 }
     
+    
 
-//    func toAnyObject() -> AnyObject {
-//        
-//        var someDict = [String : AnyObject]()
-//        someDict["BookingAmount"] = self.BookingAmount as AnyObject?
-//        someDict["BookingNumber"] = self.BookingNumber as AnyObject?
-//        someDict["PostCode"] = self.PostCode as AnyObject?
-//        someDict["SelectedBathRow"] = self.SelectedBathRow as AnyObject?
-//        someDict["SelectedBedRow"] = self.SelectedBedRow as AnyObject?
-//        someDict["DateAndTime"] = self.DateAndTime as AnyObject?
-//        someDict["TimeStampDateAndTime"] = self.TimeStampDateAndTime as AnyObject?
-//        someDict["TimeStampBookingSavedInDB"] = self.TimeStampBookingSavedInDB as AnyObject?
-//        someDict["BookingStatusClient"] = self.BookingStatusClient as AnyObject?
-//        someDict["BookingStatusAdmin"] = self.BookingStatusAdmin as AnyObject?
-//        someDict["BookingCompleted"] = self.BookingCompleted as AnyObject?
-//        someDict["FrequencyName"] = self.FrequencyName as AnyObject?
-//        someDict["FrequecyAmount"] = self.FrequecyAmount as AnyObject?
-//        someDict["insideCabinets"] = self.insideCabinets as AnyObject?
-//        someDict["insideFridge"] = self.insideFridge as AnyObject?
-//        someDict["insideOven"] = self.insideOven  as AnyObject?
-//        someDict["laundryWash"] = self.laundryWash as AnyObject?
-//        someDict["interiorWindows"] = self.interiorWindows as AnyObject?
-//        someDict["FullName"] = self.FullName as AnyObject?
-//        someDict["SuppliesName"] = self.SuppliesName as AnyObject?
-//        someDict["SuppliesAmount"] = self.SuppliesAmount as AnyObject?
-//        someDict["FlatNumber"] = self.FlatNumber as AnyObject?
-//        someDict["StreetAddress"] = self.StreetAddress as AnyObject?
-//        someDict["PhoneNumber"] = self.PhoneNumber as AnyObject?
-//        someDict["EmailAddress"] = self.EmailAddress as AnyObject?
-//        
-//        return someDict as AnyObject
-//        
-//    }
+    func toAnyObject() -> AnyObject {
+        
+        var someDict = [String : Any]()
+        
+        someDict["FirebaseUserID"] = self.FirebaseUserID as AnyObject?
+        someDict["PaymentID"] = self.PaymentID as AnyObject?
+        someDict["BookingAmount"] = self.BookingAmount as AnyObject?
+        someDict["BookingNumber"] = self.BookingNumber as AnyObject?
+        someDict["PostCode"] = self.PostCode as AnyObject?
+        someDict["SelectedBathRow"] = self.SelectedBathRow as AnyObject?
+        someDict["SelectedBedRow"] = self.SelectedBedRow as AnyObject?
+        someDict["DateAndTime"] = self.DateAndTime as AnyObject?
+        someDict["TimeStampDateAndTime"] = self.TimeStampDateAndTime as AnyObject?
+        someDict["TimeStampBookingSavedInDB"] = self.TimeStampBookingSavedInDB as AnyObject?
+        someDict["BookingStatusClient"] = self.BookingStatusClient as AnyObject?
+        someDict["BookingStatusAdmin"] = self.BookingStatusAdmin as AnyObject?
+        someDict["BookingCompleted"] = self.BookingCompleted as AnyObject?
+        
+        someDict["CostToCancelClient"] = self.CostToCancelClient as AnyObject?
+        someDict["CostToCancelAdmin"] = self.CostToCancelAdmin as AnyObject?
+        someDict["CostToRescheduleAdmin"] = self.CostToRescheduleAdmin as AnyObject?
+        someDict["CostToRescheduleClient"] = self.CostToRescheduleClient as AnyObject?
+        
+        someDict["DoormanOption"] = self.DoormanOption as AnyObject?
+        someDict["EntryInstructions"] = self.EntryInstructions as AnyObject?
+        someDict["NoteInstructions"] = self.NoteInstructions as AnyObject?
+        
+        
+        someDict["FrequencyName"] = self.FrequencyName as AnyObject?
+        someDict["FrequecyAmount"] = self.FrequecyAmount as AnyObject?
+        someDict["insideCabinets"] = self.insideCabinets ? "true" : "false"
+        someDict["insideFridge"] = self.insideFridge ? "true" : "false"
+        someDict["insideOven"] = self.insideOven ? "true" : "false"
+        someDict["laundryWash"] = self.laundryWash ? "true" : "false"
+        someDict["interiorWindows"] = self.interiorWindows ? "true" : false
+        someDict["FullName"] = self.FullName as AnyObject?
+        someDict["SuppliesName"] = self.SuppliesName as AnyObject?
+        someDict["SuppliesAmount"] = self.SuppliesAmount as AnyObject?
+        someDict["FlatNumber"] = self.FlatNumber as AnyObject?
+        someDict["StreetAddress"] = self.StreetAddress as AnyObject?
+        someDict["PhoneNumber"] = self.PhoneNumber as AnyObject?
+        someDict["EmailAddress"] = self.EmailAddress as AnyObject?
+        
+        return someDict as AnyObject
+        
+    }
  
 
 }

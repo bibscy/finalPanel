@@ -10,6 +10,25 @@ import UIKit
 
 class CancelViewController: UIViewController {
     
+
+    @IBAction func exportBookings(_ sender: Any) {
+        
+        //export the bookings from RootController to txt doc
+       
+            
+//    
+//            let path = URL(string: "file:///Users/bogdanbarbulescu/Desktop/Test.txt")
+//            
+//            //writing
+//            print("function was called with path \(String(describing: path))")
+//            
+//            do {
+//               
+//                try (FullData.allBookings).description.write(to: path!, atomically: false, encoding: .utf8)
+//            }
+//            catch let error { print("The error is \(error.localizedDescription)") }
+ 
+    }
     var alertMessage:String!
     @IBOutlet weak var label: UILabel!
      let timeStampNow = Int(Date().timeIntervalSince1970)
