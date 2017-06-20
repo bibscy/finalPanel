@@ -20,8 +20,8 @@ class RescheduleViewController_1: UIViewController {
     var dateFormatter:DateFormatter = DateFormatter()
     var hourComponents:Int = 0
     var dateAndTime = Date()
-    let dateKey = "dateAndTimeKeyRescheduleViewController"
-    let hourKey = "hourComponentsKeyRescheduleViewController"
+    let dateKey = "dateAndTimeKeyRescheduleViewControllerALL_Bookings"
+    let hourKey = "hourComponentsKeyRescheduleViewControllerALL_Bookings"
     
     
     // the alert text when checking
@@ -32,9 +32,10 @@ class RescheduleViewController_1: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-// load current time as minimum date
-    self.rescheduleDatePicker.minimumDate = Date(timeInterval: 1, since: currentTime)
+        
+        // load current time as minimum date
+        self.rescheduleDatePicker.minimumDate = Date(timeInterval: 1, since: currentTime)
+        
         
     // Call datePickerAction when rescheduleDatePicker value is changed
     rescheduleDatePicker.addTarget(self, action: #selector(self.datePickerAction(_:)), for: UIControlEvents.valueChanged)
@@ -45,6 +46,9 @@ class RescheduleViewController_1: UIViewController {
         super.viewDidAppear(animated)
         // retrieve date and time from NSUserDefaults
         loadDate(true)
+        print("dateAndTime line 48 viewDidAppear RescheduleViewController_1 \(dateAndTime)")
+        
+        
     }
 
     
@@ -64,92 +68,73 @@ class RescheduleViewController_1: UIViewController {
     
     @IBAction func rescheduleNow(_ sender: Any) {
         
-        // print(hourComponents)
-        savePickerData() // save date to NSUserDefaults
+        savePickerData() // save date to UserDefaults
+        
+        let currentDate = Date()
+        let datePickedTimeStamp = Int(dateAndTime.timeIntervalSince1970)
+        let currentDateTimeStamp = Int(currentDate.timeIntervalSince1970)
+        
+        // calculate the difference between the desired date for booking and current time.
+        var timeUntilBooking:Int {
+            return datePickedTimeStamp - currentDateTimeStamp
+        }
+        
+        print("Date and time in Picker records \(dateAndTime) and hourComponents is \(hourComponents)")
         
         // check if hour selected is included in timeRestricted
         if timeRestricted.contains(hourComponents) {
-            
             //display the error
+            self.alertMessage = "Please choose a time betwen 7:00 - 19:00."
             self.displayAlert()
             
-        } else {
             
+            //if there is less than 24 hours left till booking time, display alert
+        } else if timeUntilBooking < 86400 {
+            alertMessage = "Due to high demand we do not have availability at that time. Please try booking 24 hours away."
+            self.displayAlert()
+            
+            
+        } else {
             //calculate amount to charge customer for rescheduling this booking
             calculateRescheduleAmount()
-            
-            //display an alert
-            let myAlert = UIAlertController(title: "Do you want to reschedule booking?", message:   alertMessage, preferredStyle: .alert)
-            
-            //add an action (namely a button) to myAlert UIAlertController
-            myAlert.addAction(UIAlertAction(title: "YES", style: .default, handler: { (action:UIAlertAction) in
-                self.performSegue(withIdentifier: "toRescheduleCompletedMultiple", sender: self)
-            }))
-            
-            //add an action (namely a button) to myAlert UIAlertController
-            myAlert.addAction(UIAlertAction(title: "NO", style: .cancel, handler: nil))
-            
-            self.present(myAlert, animated: true, completion: nil)
-            
-        } // end of else
+            //display alert with the amount the customer will be charged to reschedule this  booking
+            displayRescheduleAmountAlert()
+        }
+        
     } //end of rescheduleNow
 
+    
+    
+    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toRescheduleCompletedMultiple" {
             
-            if let destViewController = segue.destination as? RescheduleCompleted {
+             print("prepare for segue was called in if segue.identifier")
+            if let destViewController = segue.destination as? RescheduleCompleted_1 {
                 
-                //send the date from UIDatePicker to new controller so as to overwrite the current value in Firebase
-                destViewController.TimeStampDateAndTime = String(Int(dateAndTime.timeIntervalSince1970))
+                print("prepare for segue was called")
+                
+    //send the date from UIDatePicker to new controller so as to overwrite the current value in Firebase
+    destViewController.TimeStampDateAndTime = String(Int(dateAndTime.timeIntervalSince1970))
                 
                 // assign dateAndTime to FullData structure which will overwrite the current value in Firebase
                 dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm"
                 FullData.finalDateAndTime = dateFormatter.string(from: dateAndTime)
+                
+                
+                print("FullData.finalDateAndTime line 111 \(FullData.finalDateAndTime)")
+                
+                print("destViewController.TimeStampDateAndTime line 113 \(destViewController.TimeStampDateAndTime)")
+                
             }
         }
     }
     
-    func savePickerData() {
-        
-        //save date and time to NSUserDefaults
-        UserDefaults.standard.set(rescheduleDatePicker.date, forKey: dateKey)
-        UserDefaults.standard.set(hourComponents, forKey: hourKey)
-        
-        // assign the vale of myDatePicker to dateAndTime global variable
-        // even if the customer did not touch myDatePicker and moved to next controller, we record the time the customer saw when we segue into next controller
-        dateAndTime = rescheduleDatePicker.date
-        
-        // extract hour component from timeSelected in rescheduleDatePicker
-        let unitFlags: NSCalendar.Unit = [.hour]
-        let components = (Calendar.current as NSCalendar).components(unitFlags, from: dateAndTime)
-        let hour = components.hour
-        hourComponents = hour!
-    }
+   
     
     
-    // retrieve date and time from NSUserDefaults
-    func loadDate(_ animation:Bool) {
-        if let loadedDate = UserDefaults.standard.object(forKey: dateKey) as? Date {
-            rescheduleDatePicker.setDate(loadedDate, animated: animation)
-            dateAndTime = loadedDate // update the date we are sending to next viewController
-        }
-        
-        if let loadHour = UserDefaults.standard.object(forKey: hourKey) as? Int {
-            hourComponents = loadHour
-        }
-    }
     
-    
-    // display an alert with the error
-    func displayAlert() {
-        let myAlert = UIAlertController(title: "", message: self.alertMessage, preferredStyle:
-            .alert)
-        myAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action:UIAlertAction) in
-            // no action
-        }))
-        self.present(myAlert, animated: true, completion: nil)
-    }
     
     
     
@@ -201,6 +186,65 @@ class RescheduleViewController_1: UIViewController {
         } // end of switch
     } // end of calculateRescheduleAmount
     
+    
+    
+    func savePickerData() {
+        
+        //save date and time to NSUserDefaults
+        UserDefaults.standard.set(rescheduleDatePicker.date, forKey: dateKey)
+        UserDefaults.standard.set(hourComponents, forKey: hourKey)
+        
+        // assign the value of rescheduleDatePicker to dateAndTime global variable
+        // even if the customer did not touch myDatePicker and moved to next controller, we record the time the customer saw when we segue into next controller
+        dateAndTime = rescheduleDatePicker.date
+        
+        // extract hour component from timeSelected in rescheduleDatePicker
+        let unitFlags: NSCalendar.Unit = [.hour]
+        let components = (Calendar.current as NSCalendar).components(unitFlags, from: dateAndTime)
+        let hour = components.hour
+        hourComponents = hour!
+    }
+    
+
+    // retrieve date and time from NSUserDefaults
+    func loadDate(_ animation:Bool) {
+        if let loadedDate = UserDefaults.standard.object(forKey: dateKey) as? Date {
+            rescheduleDatePicker.setDate(loadedDate, animated: animation)
+            dateAndTime = loadedDate // update the date we are sending to next viewController
+        }
+        
+        if let loadHour = UserDefaults.standard.object(forKey: hourKey) as? Int {
+            hourComponents = loadHour
+        }
+    }
+    
+    
+
+    //if timeRestricted.contains(hourComponents) display an alert with the error
+    func displayAlert() {
+        let myAlert = UIAlertController(title: "", message: self.alertMessage, preferredStyle:
+            .alert)
+        myAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(myAlert, animated: true, completion: nil)
+    }
+
+    
+    
+    
+    //display an alert with the cost the customer will be charged to reschedule this booking and segue if YES
+    func displayRescheduleAmountAlert() {
+        let myAlert = UIAlertController(title: "Do you want to reschedule booking?", message:   alertMessageReschedule, preferredStyle: .alert)
+        
+        //add an action (namely a button) to myAlert UIAlertController
+        myAlert.addAction(UIAlertAction(title: "YES", style: .default, handler: { (action:UIAlertAction) in
+            self.performSegue(withIdentifier: "toRescheduleCompletedMultiple", sender: self)
+        }))
+        
+        myAlert.addAction(UIAlertAction(title: "NO", style: .cancel, handler: nil))
+        self.present(myAlert, animated: true, completion: nil)
+    }
+    
+  
     
 
 }

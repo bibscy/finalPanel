@@ -247,35 +247,40 @@ class RootController_1: UITableViewController, UISplitViewControllerDelegate {
             FullData.finalBookingCompleted = bookingSelected.BookingCompleted
 
  
+      //use else clause to set optional vars to nil so as to avoid a new booking being initialized with the value from the previous booking
+             
     if bookingSelected.DoormanOption != nil {
                 FullData.finalDoormanOption = bookingSelected.DoormanOption
-            }
-            
+    } else { FullData.finalDoormanOption = nil }
+        
             
             if bookingSelected.EntryInstructions != nil {
                 FullData.finalEntryInstructions = bookingSelected.EntryInstructions
-            }
+            } else {FullData.finalEntryInstructions = "" }
+            
             
             if bookingSelected.NoteInstructions != nil {
                 FullData.finalNoteInstructions = bookingSelected.NoteInstructions
-            }
+            } else {FullData.finalNoteInstructions = ""}
             
             if bookingSelected.CostToCancelAdmin != nil {
                 FullData.costToCancelAdmin = bookingSelected.CostToCancelAdmin
-            }
+            } else{FullData.costToCancelAdmin = nil }
             
             
             if bookingSelected.CostToCancelClient != nil {
                 FullData.costToCancelClient = bookingSelected.CostToCancelClient
-            }
+            } else {FullData.costToCancelClient = nil}
+            
             
             if bookingSelected.CostToRescheduleAdmin != nil {
                 FullData.costToRescheduleAdmin = bookingSelected.CostToRescheduleAdmin
-            }
+            } else {FullData.costToRescheduleAdmin = nil}
+            
             
             if bookingSelected.CostToRescheduleClient != nil {
                 FullData.costToRescheduleClient = bookingSelected.CostToRescheduleClient
-            }
+            } else{FullData.costToRescheduleClient = nil }
             
             
             

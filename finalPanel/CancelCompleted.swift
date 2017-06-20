@@ -14,7 +14,8 @@ class CancelCompleted: UIViewController {
 
     var currentDate = Date()
     var timeStampBookingCancelled:Int!
-    let urlString = "http://0.0.0.0:8080/refund/stripe"
+    let urlString = "https://secure-garden-28988.herokuapp.com/refund/stripe"
+
     var params = [String:Any]()
 
     

@@ -18,7 +18,7 @@ class RescheduleCompleted: UIViewController {
     var currentDate = Date()
     var TimeStampBookingRescheduledAdmin:Int!
     let urlString = "https://secure-garden-28988.herokuapp.com/rescheduleadmin/stripe"
-    // "http://0.0.0.0:8080/rescheduleadmin/stripe"
+    
     var params = [String:Any]()
     
     

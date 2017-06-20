@@ -96,17 +96,36 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
     
  
     // convert bookingInfo of type FIrebaseData to Array of Dictionaries
-     let arrayOfDictionary = self.bookingInfo.flatMap { $0.toAnyObject() as? [String:Any] }
+     let finalDictionary = self.bookingInfo.flatMap { $0.toAnyObject() as? [String:String] }
 
-    print("arrayof Dict is \(arrayOfDictionary)")
+    print("arrayof Dict is \(finalDictionary)")
            print("OurBooking is___ \(self.bookingInfo)")
     
-
     
-//    let stringSeparated = arrayOfDictionary.joined(separator: "-")
-//    print("stringSeparated \(stringSeparated)")
+    var outputString = ""
+    var i = 1
+    for item in finalDictionary{
+        outputString += "Booking \(i) :\n"
+         for key in item.keys{
+            outputString += key + ":" + (item[key] ?? "(no value)") + "\n"
+        }
+          outputString += "\n"
+          i += 1
+        FullData.formattedString = outputString
+    }
+      print("outputString is \(outputString)")
     
-    
+//    do{
+//        if let theJSONData = try? JSONSerialization.data(withJSONObject: arrayOfDictionary, options: []){
+//            FullData.theJSONText = String(data: theJSONData,
+//                                          encoding: .ascii)
+//            print("The FullData.theJSONText is \(FullData.theJSONText)")
+//            
+//        }
+//
+//    } catch let error {
+//        print("the rror is \(error.localizedDescription)")
+//    }
     
     
              // reload the data every time FIRDataEventType is triggered by value changes in Database

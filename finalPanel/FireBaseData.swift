@@ -294,50 +294,75 @@ Key:String = "") {
     
     
 
-    func toAnyObject() -> AnyObject {
+    func toAnyObject() -> [String : String] {
         
-        var someDict = [String : Any]()
+        var someDict = [String : String]()
         
-        someDict["FirebaseUserID"] = self.FirebaseUserID as AnyObject?
-        someDict["PaymentID"] = self.PaymentID as AnyObject?
-        someDict["BookingAmount"] = self.BookingAmount as AnyObject?
-        someDict["BookingNumber"] = self.BookingNumber as AnyObject?
-        someDict["PostCode"] = self.PostCode as AnyObject?
-        someDict["SelectedBathRow"] = self.SelectedBathRow as AnyObject?
-        someDict["SelectedBedRow"] = self.SelectedBedRow as AnyObject?
-        someDict["DateAndTime"] = self.DateAndTime as AnyObject?
-        someDict["TimeStampDateAndTime"] = self.TimeStampDateAndTime as AnyObject?
-        someDict["TimeStampBookingSavedInDB"] = self.TimeStampBookingSavedInDB as AnyObject?
-        someDict["BookingStatusClient"] = self.BookingStatusClient as AnyObject?
-        someDict["BookingStatusAdmin"] = self.BookingStatusAdmin as AnyObject?
-        someDict["BookingCompleted"] = self.BookingCompleted as AnyObject?
+        someDict["FirebaseUserID"] = String(self.FirebaseUserID)
         
-        someDict["CostToCancelClient"] = self.CostToCancelClient as AnyObject?
-        someDict["CostToCancelAdmin"] = self.CostToCancelAdmin as AnyObject?
-        someDict["CostToRescheduleAdmin"] = self.CostToRescheduleAdmin as AnyObject?
-        someDict["CostToRescheduleClient"] = self.CostToRescheduleClient as AnyObject?
+        someDict["PaymentID"] = String(self.PaymentID)
+        someDict["BookingAmount"] = String(self.BookingAmount)
+        someDict["BookingNumber"] = String(self.BookingNumber)
+        someDict["PostCode"] = String(self.PostCode)
+        someDict["SelectedBathRow"] = String(self.SelectedBathRow)
+        someDict["SelectedBedRow"] = String(self.SelectedBedRow)
+        someDict["DateAndTime"] = String(self.DateAndTime)
+        someDict["TimeStampDateAndTime"] = String(self.TimeStampDateAndTime)
+        someDict["TimeStampBookingSavedInDB"] = String(self.TimeStampBookingSavedInDB)
+        someDict["BookingStatusClient"] = String(self.BookingStatusClient)
+        someDict["BookingStatusAdmin"] = String(self.BookingStatusAdmin)
+        someDict["BookingCompleted"] = String(self.BookingCompleted)
         
-        someDict["DoormanOption"] = self.DoormanOption as AnyObject?
-        someDict["EntryInstructions"] = self.EntryInstructions as AnyObject?
-        someDict["NoteInstructions"] = self.NoteInstructions as AnyObject?
+        if CostToCancelClient != nil {
+            someDict["CostToCancelClient"] = String(self.CostToCancelClient)
+        }
+        
+        if CostToCancelAdmin != nil {
+             someDict["CostToCancelAdmin"] = self.CostToCancelAdmin
+        }
+       
+        
+        if CostToRescheduleAdmin != nil{
+            someDict["CostToRescheduleAdmin"] = String(self.CostToRescheduleAdmin)
+        }
+        
+        if CostToRescheduleClient != nil {
+            someDict["CostToRescheduleClient"] = String(self.CostToRescheduleClient)
+        }
         
         
-        someDict["FrequencyName"] = self.FrequencyName as AnyObject?
-        someDict["FrequecyAmount"] = self.FrequecyAmount as AnyObject?
-        someDict["insideCabinets"] = self.insideCabinets ? "true" : "false"
-        someDict["insideFridge"] = self.insideFridge ? "true" : "false"
-        someDict["insideOven"] = self.insideOven ? "true" : "false"
-        someDict["laundryWash"] = self.laundryWash ? "true" : "false"
-        someDict["interiorWindows"] = self.interiorWindows ? "true" : false
-        someDict["FullName"] = self.FullName as AnyObject?
-        someDict["SuppliesName"] = self.SuppliesName as AnyObject?
-        someDict["SuppliesAmount"] = self.SuppliesAmount as AnyObject?
-        someDict["FlatNumber"] = self.FlatNumber as AnyObject?
-        someDict["StreetAddress"] = self.StreetAddress as AnyObject?
-        someDict["PhoneNumber"] = self.PhoneNumber as AnyObject?
-        someDict["EmailAddress"] = self.EmailAddress as AnyObject?
+        if DoormanOption != nil {
+            someDict["DoormanOption"] = String(self.DoormanOption)
+        }
         
-        return someDict as AnyObject
+        if EntryInstructions != nil {
+            someDict["EntryInstructions"] = String(self.EntryInstructions)
+        }
+        
+        if NoteInstructions != nil {
+            someDict["NoteInstructions"] = String(self.NoteInstructions)
+        }
+        
+        
+        
+        
+        someDict["FrequencyName"] = String(self.FrequencyName)
+        someDict["FrequecyAmount"] = String(self.FrequecyAmount)
+        someDict["insideCabinets"] = String(self.insideCabinets) //? "true" : "false"
+        someDict["insideFridge"] = String(self.insideFridge) //? "true" : "false"
+        someDict["insideOven"] = String(self.insideOven) //? "true" : "false"
+        someDict["laundryWash"] = String(self.laundryWash) //? "true" : "false"
+        someDict["interiorWindows"] = String(self.interiorWindows) //? "true" : false
+        someDict["FullName"] = String(self.FullName)
+        someDict["SuppliesName"] = String(self.SuppliesName)
+        
+        someDict["SuppliesAmount"] = String(self.SuppliesAmount)
+        someDict["FlatNumber"] = String(self.FlatNumber)
+        someDict["StreetAddress"] = String(self.StreetAddress)
+        someDict["PhoneNumber"] = String(self.PhoneNumber)
+        someDict["EmailAddress"] = String(self.EmailAddress)
+        
+        return someDict
         
     }
  

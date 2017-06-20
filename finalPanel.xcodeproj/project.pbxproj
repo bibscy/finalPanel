@@ -18,6 +18,7 @@
 		A31B5C811E06ED460090EDB0 /* DetailViewController_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31B5C801E06ED460090EDB0 /* DetailViewController_1.swift */; };
 		A326B4EB1E23F733000E5BD0 /* CancelViewController_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326B4EA1E23F733000E5BD0 /* CancelViewController_1.swift */; };
 		A326B4ED1E265FD3000E5BD0 /* CancelCompleted_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326B4EC1E265FD3000E5BD0 /* CancelCompleted_1.swift */; };
+		A3300BF61EF43D4E004745B2 /* myBookings.txt in Resources */ = {isa = PBXBuildFile; fileRef = A3300BF51EF43D4E004745B2 /* myBookings.txt */; };
 		A34AAFC11E05E1220076E84A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34AAFC01E05E1220076E84A /* AppDelegate.swift */; };
 		A34AAFC81E05E1220076E84A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A34AAFC71E05E1220076E84A /* Assets.xcassets */; };
 		A34AAFCB1E05E1220076E84A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A34AAFC91E05E1220076E84A /* LaunchScreen.storyboard */; };
@@ -47,6 +48,7 @@
 		A326B4EA1E23F733000E5BD0 /* CancelViewController_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelViewController_1.swift; sourceTree = "<group>"; };
 		A326B4EC1E265FD3000E5BD0 /* CancelCompleted_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelCompleted_1.swift; sourceTree = "<group>"; };
 		A326B4EE1E268585000E5BD0 /* bridging_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bridging_header.h; sourceTree = "<group>"; };
+		A3300BF51EF43D4E004745B2 /* myBookings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = myBookings.txt; sourceTree = "<group>"; };
 		A34AAFBD1E05E1220076E84A /* finalPanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finalPanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A34AAFC01E05E1220076E84A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A34AAFC71E05E1220076E84A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		A34AAFBF1E05E1220076E84A /* finalPanel */ = {
 			isa = PBXGroup;
 			children = (
+				A3300BF51EF43D4E004745B2 /* myBookings.txt */,
 				A34AAFC01E05E1220076E84A /* AppDelegate.swift */,
 				A34AAFD51E05E1C20076E84A /* FireBaseData.swift */,
 				A34AAFD61E05E1C20076E84A /* FullData.swift */,
@@ -256,6 +259,7 @@
 				A34FBD2C1EED4FF20005F4F9 /* GoogleService-Info.plist in Resources */,
 				A34AAFC81E05E1220076E84A /* Assets.xcassets in Resources */,
 				A34AAFD31E05E1690076E84A /* Main.storyboard in Resources */,
+				A3300BF61EF43D4E004745B2 /* myBookings.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

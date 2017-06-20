@@ -17,7 +17,8 @@ class RescheduleCompleted_1: UIViewController {
     
     var currentDate = Date()
     var TimeStampBookingRescheduledAdmin:Int!
-    let urlString = "http://0.0.0.0:8080/rescheduleadmin/stripe"
+    let urlString = "https://secure-garden-28988.herokuapp.com/rescheduleadmin/stripe"
+    //"http://0.0.0.0:8080/rescheduleadmin/stripe"
     var params = [String:Any]()
     
     
@@ -27,7 +28,10 @@ class RescheduleCompleted_1: UIViewController {
         super.viewDidLoad()
 
         createParams()
+        
+        print("before createParams FullData.finalDateAndTime \(FullData.finalDateAndTime)")
         postToServer()
+        print("after postToServer FullData.finalDateAndTime \(FullData.finalDateAndTime)")
     }
 
 
@@ -47,6 +51,21 @@ class RescheduleCompleted_1: UIViewController {
         params["DateAndTime"] = FullData.finalDateAndTime
         params["TimeStampDateAndTime"] = TimeStampDateAndTime // received from RescheduleViewController
         params["EmailAddress"] = FullData.finalEmailAddress
+        
+        print("print vars with vars or not vars line 54 RescheduleCompleted_1")
+        
+       
+        print(" StripeCustomerID\(FullData.finalStripeCustomerID)")
+         print("CostToRescheduleAdmin \(FullData.finalAmountChargedToReschedule)")
+        
+         print("TimeStampBookingRescheduledAdmin \(TimeStampBookingRescheduledAdmin)")
+         print(" FirebaseUserID\(FullData.finalFirebaseUserID)")
+         print("BookingNumber \(FullData.finalBookingNumber)")
+         print(" AdminBookingStatus \(String(FullData.finalAdminBookingStatus))")
+         print("DateAndTime \(FullData.finalDateAndTime)")
+         print(" TimeStampDateAndTime \(TimeStampDateAndTime)")
+         print(" EmailAddress\(FullData.finalEmailAddress)")
+
     }
     
     
