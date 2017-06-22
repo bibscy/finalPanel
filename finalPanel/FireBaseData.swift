@@ -199,20 +199,29 @@ Key:String = "") {
         
         if let costToCancelCient = (snapshot.value! as? NSDictionary)?["CostToCancelClient"] as? String {
             CostToCancelClient = costToCancelCient
+    } else {
+            CostToCancelClient = nil
         }
         
         
         if let costToCancelAdmin = (snapshot.value! as? NSDictionary)?["CostToCancelAdmin"] as? String {
             CostToCancelAdmin  = costToCancelAdmin
+    } else {
+            CostToCancelAdmin = nil
         }
         
         
         if let costToRescheduleAdmin = (snapshot.value! as? NSDictionary)?["CostToRescheduleAdmin"] as? String {
             CostToRescheduleAdmin = costToRescheduleAdmin
+        } else {
+            CostToRescheduleAdmin = nil
         }
+            
         
         if let costToRescheduleClient = (snapshot.value! as? NSDictionary)?["CostToRescheduleClient"] as? String {
             CostToRescheduleClient = costToRescheduleClient
+        } else {
+            CostToRescheduleClient = nil
         }
      
         
@@ -293,7 +302,9 @@ Key:String = "") {
 }
     
     
-
+    
+    
+//returns all objects as in Firebase
     func toAnyObject() -> [String : String] {
         
         var someDict = [String : String]()
@@ -367,6 +378,57 @@ Key:String = "") {
     }
  
 
+    
+    //returns only some objects necessary to customer
+    func toStringString() -> [String : String] {
+        
+        var someDict = [String : String]()
+
+        someDict["BookingAmount"] = String(self.BookingAmount)
+        someDict["BookingNumber"] = String(self.BookingNumber)
+        someDict["PostCode"] = String(self.PostCode)
+        someDict["SelectedBathRow"] = String(self.SelectedBathRow)
+        someDict["SelectedBedRow"] = String(self.SelectedBedRow)
+        someDict["DateAndTime"] = String(self.DateAndTime)
+
+        someDict["FrequencyName"] = String(self.FrequencyName)
+        someDict["FrequecyAmount"] = String(self.FrequecyAmount)
+        someDict["insideCabinets"] = String(self.insideCabinets) //? "true" : "false"
+        someDict["insideFridge"] = String(self.insideFridge) //? "true" : "false"
+        someDict["insideOven"] = String(self.insideOven) //? "true" : "false"
+        someDict["laundryWash"] = String(self.laundryWash) //? "true" : "false"
+        someDict["interiorWindows"] = String(self.interiorWindows) //? "true" : false
+        someDict["FullName"] = String(self.FullName)
+        someDict["SuppliesName"] = String(self.SuppliesName)
+        
+        someDict["SuppliesAmount"] = String(self.SuppliesAmount)
+        someDict["FlatNumber"] = String(self.FlatNumber)
+        someDict["StreetAddress"] = String(self.StreetAddress)
+        someDict["PhoneNumber"] = String(self.PhoneNumber)
+        someDict["EmailAddress"] = String(self.EmailAddress)
+
+        
+        someDict["BookingStatusClient"] = String(self.BookingStatusClient)
+        someDict["BookingStatusAdmin"] = String(self.BookingStatusAdmin)
+        someDict["BookingCompleted"] = String(self.BookingCompleted)
+
+
+        if DoormanOption != nil {
+            someDict["DoormanOption"] = String(self.DoormanOption)
+        }
+        
+        if EntryInstructions != nil {
+            someDict["EntryInstructions"] = String(self.EntryInstructions)
+        }
+        
+        if NoteInstructions != nil {
+            someDict["NoteInstructions"] = String(self.NoteInstructions)
+         }
+        
+               return someDict
+      }
+    
+    
 }
 
 

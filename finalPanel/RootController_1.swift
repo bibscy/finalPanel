@@ -104,15 +104,114 @@ class RootController_1: UITableViewController, UISplitViewControllerDelegate {
     FullData.toDate! >= firstElementInArray.TimeStampDateAndTime
    })
 } // end of if condition
-       
+         print("OurBooking is___ \(self.bookingInfo)")
         
-        // convert bookingInfo of type FIrebaseData to Array of Dictionaries
-        let arrayOfDictionary = self.bookingInfo.flatMap { $0.toAnyObject() as? [String:Any] }
-               print("arrayof Dict is \(arrayOfDictionary)")
+        
+        
+        
+        //1. convert bookingInfo of type FIrebaseData to Array of Dictionaries containing ALL data as in Firebase
+        var originalDictionary = self.bookingInfo.flatMap { $0.toAnyObject() as? [String:String] }
+                    print("arrayof originalDictionary is \(originalDictionary)")
+       
+
+        //loop through all bookings and replace certain key names
+        for (index,var booking) in originalDictionary.enumerated(){
+            
+            for key in booking.keys{
+                
+                switch key {
+                    
+                case "SelectedBedRow":
+                    let previousValue =  booking.removeValue(forKey: "SelectedBedRow")
+                    booking["Number of Beds"] = previousValue
+                    originalDictionary[index] = booking
+                    
+                case "SelectedBathRow":
+                    let previousValue =  booking.removeValue(forKey: "SelectedBathRow")
+                    booking["Number of Baths"] = previousValue
+                    originalDictionary[index] = booking
+                    
+                default: break
+                    
+                }
+            }
+        }
+        
+              print("originalDictionary is \(originalDictionary)")
+   
+        
+         //loop through the array of bookings, take each element, convert it to string and format it
+        var outputString = ""
+        var i = 1
+        for item in originalDictionary{
+            outputString += "Booking \(i) :\n"
+            for key in item.keys{
+                outputString += key + ":" + (item[key] ?? "(no value)") + "\n"
+            }
+            outputString += "\n"
+            i += 1
+            FullData.formattedString = outputString
+            print("outputString is \(outputString)")
+        }
+        
+        
+        
+        
+        
+        
+        // 2. convert bookingInfo of type FIrebaseData to Array of Dictionaries containing ONLY the data that the cleaner needs
+        var cleanerDictionary = self.bookingInfo.flatMap { $0.toStringString() as? [String:String] }
+        
+        
+        
+
+        //loop through all bookings and replace certain key names
+        for (index,var booking) in cleanerDictionary.enumerated(){
+            
+            for key in booking.keys{
+                
+                switch key {
+                    
+                case "SelectedBedRow":
+                    let previousValue =  booking.removeValue(forKey: "SelectedBedRow")
+                    booking["Number of Beds"] = previousValue
+                    cleanerDictionary[index] = booking
+                    
+                case "SelectedBathRow":
+                    let previousValue =  booking.removeValue(forKey: "SelectedBathRow")
+                    booking["Number of Baths"] = previousValue
+                    cleanerDictionary[index] = booking
+                    
+                default: break
+                    
+                }
+            }
+        }
+        
 
         
-            print("OurBooking is___ \(self.bookingInfo)")
-            // reload the data every time FIRDataEventType is triggered by value changes in Database
+      
+           //loop through the array of bookings, take each element, convert it to string and format it
+         var cleanerString = ""
+          var x = 1
+            for item in cleanerDictionary{
+             cleanerString += "Booking \(x) :\n"
+            for key in item.keys{
+                
+                cleanerString += key + ":" + (item[key] ?? "(no value)") + "\n"
+            }
+               cleanerString += "\n"
+               x += 1
+               FullData.cleanerString = cleanerString
+        }
+               print("cleanerString  is \(cleanerString)")
+        
+        
+        
+
+        
+        
+        
             self.tableView.reloadData()
         }, withCancel: { (Error:Any) in
             print("Huge \(Error)")
@@ -151,39 +250,54 @@ class RootController_1: UITableViewController, UISplitViewControllerDelegate {
         cell.textLabel?.text = "Booking# " + booking.BookingNumber + "\n" + booking.DateAndTime + "\n" + booking.PostCode + "\n" + booking.Key
       
   
-    print("the status for booking#                                        \(booking.BookingNumber) is BookingStatusClient \(booking.BookingStatusClient), booking.BookingCompleted \(booking.BookingCompleted), booking.BookingStatusAdmin \(booking.BookingStatusAdmin)")
+        //Cancelled bookings by user  Brown color
         
-       //Active bookings     Clear color
- if booking.BookingStatusClient == true &&
-           booking.BookingCompleted == false &&
-                 booking.BookingStatusAdmin == false {
-                          cell.backgroundColor = UIColor.clear
-} else if
-        //Cancelled bookings by user  Red color
- booking.BookingStatusClient == false &&
-     booking.BookingCompleted == false &&
-       booking.BookingStatusAdmin == false {
-     cell.contentView.backgroundColor = UIColor.red
-} else if
-        
-     //Cancelled by Admin   Brown color
- booking.BookingStatusAdmin == true {
-     cell.contentView.backgroundColor = UIColor.brown
+        if booking.CostToCancelClient != nil {
+            print("booking.CostToCancelClient line 250 \(booking.CostToCancelClient)")
+            cell.contentView.backgroundColor = .brown
+            //booking.CostToCancelClient = nil
             
-} else if
-        
- // Completed bookings    Green color
- booking.BookingStatusClient == true &&
-    booking.BookingCompleted == true {
-     cell.contentView.backgroundColor = UIColor.green
-} else {
-    
-    // if none of the cases above is met, Orange color
-     cell.contentView.backgroundColor = UIColor.orange
+        } else if
+            //Cancelled by Admin   Gray color
+            booking.CostToCancelAdmin != nil {
+            cell.contentView.backgroundColor = UIColor.gray
+            //booking.CostToCancelAdmin = nil
+            
+        } else if
+            //Cancelled by Client   Gray color
+            booking.CostToCancelClient != nil {
+            cell.contentView.backgroundColor = UIColor.gray
+            //booking.CostToCancelClient = nil
+            
+            
+            
+        } else if
+            //Rescheduled bookings  Admin   blue color
+            booking.CostToRescheduleAdmin != nil {
+            cell.contentView.backgroundColor = .blue
+            //booking.CostToRescheduleAdmin = nil
+            
+        } else if
+            //Rescheduled bookings  Client   blue color
+            booking.CostToRescheduleClient != nil {
+            cell.contentView.backgroundColor = .blue
+            //booking.CostToRescheduleClient = nil
+            
+            
+        } else if
+            
+            //Active bookings     Clear color
+            booking.CostToCancelAdmin == nil || booking.CostToCancelClient == nil {
+            print("booking number 244 is \(booking.BookingNumber)")
+            print("CostToCancelAdmin line 248 \(booking.CostToCancelAdmin), CostToCancelClient \(booking.CostToCancelClient) ")
+            cell.backgroundColor = .clear
+            
+        } else {
+            // if none of the cases above is met, Orange color
+            cell.contentView.backgroundColor = UIColor.orange
         }
         
-    return cell
-       
+            return cell
  } // end of override func tableView
     
     

@@ -28,6 +28,17 @@ class DetailViewController_1: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func reschedule(_ sender: AnyObject) {
     }
     
+    @IBAction func exportSimple(_ sender: Any) {
+        exportBookingsForCustomerUse()
+    }
+    
+    
+    @IBAction func exportFull(_ sender: Any) {
+        
+        exportAllBookingsAsInFireBase()
+    }
+
+    
     
     var dateAndTimeReceived:String!
     var flatNumberReceived:String!
@@ -168,6 +179,63 @@ class DetailViewController_1: UIViewController, UITableViewDataSource, UITableVi
         (cell?.contentView.viewWithTag(2) as? UILabel)?.text = titlesToValues[titles[indexPath.row]]
         return cell ?? UITableViewCell()
     }
+    
+    
+    
+    
+    func exportAllBookingsAsInFireBase(){
+        // get the documents folder url
+        let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        // create the destination url for the text file to be saved
+        let fileURL = documentDirectory.appendingPathComponent("file.txt")
+        
+        print("the path is \(fileURL)")
+        
+        do {
+            // writing to disk
+            try FullData.formattedString.write(to: fileURL, atomically: false, encoding: .utf8)
+            
+            // saving was successful. any code posterior code goes here
+            // reading from disk
+            do {
+                let mytext = try String(contentsOf: fileURL)
+                print(mytext)   // "some text\n"
+            } catch {
+                print("error loading contents of:", fileURL, error)
+            }
+        } catch {
+            print("error writing to url:", fileURL, error)
+        }
+    }
+    
+    
+    
+    
+    func exportBookingsForCustomerUse(){
+        // get the documents folder url
+        let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        // create the destination url for the text file to be saved
+        let fileURL = documentDirectory.appendingPathComponent("file.txt")
+        
+        print("the path is \(fileURL)")
+        
+        do {
+            // writing to disk
+            try FullData.cleanerString.write(to: fileURL, atomically: false, encoding: .utf8)
+            
+            // saving was successful. any code posterior code goes here
+            // reading from disk
+            do {
+                let mytext = try String(contentsOf: fileURL)
+                print(mytext)   // "some text\n"
+            } catch {
+                print("error loading contents of:", fileURL, error)
+            }
+        } catch {
+            print("error writing to url:", fileURL, error)
+        }
+    }
+    
     
 
     

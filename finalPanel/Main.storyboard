@@ -269,7 +269,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="y7v-uD-qW3">
-                                <rect key="frame" x="0.0" y="64" width="375" height="503"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="442"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContentCell" rowHeight="68" id="4GN-Ri-H4r">
@@ -309,6 +309,30 @@
                                     <outlet property="delegate" destination="y8j-Eh-9hD" id="LIM-Wb-yUr"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRb-9I-GZ3">
+                                <rect key="frame" x="0.0" y="514" width="146" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Export Simple">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="exportSimple:" destination="y8j-Eh-9hD" eventType="touchUpInside" id="yoP-58-vqI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQa-xm-6in">
+                                <rect key="frame" x="246" y="514" width="129" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Export Full">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="exportFull:" destination="y8j-Eh-9hD" eventType="touchUpInside" id="CiA-Ka-2bq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -317,7 +341,7 @@
                             <constraint firstItem="y7v-uD-qW3" firstAttribute="leading" secondItem="OZu-TL-PVF" secondAttribute="leading" id="GIz-Va-LOZ"/>
                             <constraint firstItem="Oq8-kF-WKg" firstAttribute="leading" secondItem="CWS-Ki-1AR" secondAttribute="leading" id="JNh-nV-1NT"/>
                             <constraint firstItem="y7v-uD-qW3" firstAttribute="leading" secondItem="Oq8-kF-WKg" secondAttribute="leading" id="Sek-2p-QN4"/>
-                            <constraint firstItem="Oq8-kF-WKg" firstAttribute="top" secondItem="y7v-uD-qW3" secondAttribute="bottom" constant="21" id="cwU-Wn-e7S"/>
+                            <constraint firstItem="Oq8-kF-WKg" firstAttribute="top" secondItem="y7v-uD-qW3" secondAttribute="bottom" constant="82" id="cwU-Wn-e7S"/>
                             <constraint firstAttribute="trailing" secondItem="y7v-uD-qW3" secondAttribute="trailing" id="erH-hR-JeM"/>
                             <constraint firstItem="y7v-uD-qW3" firstAttribute="top" secondItem="sgL-zX-Z2O" secondAttribute="bottom" id="mbi-2U-QtC"/>
                             <constraint firstItem="Oq8-kF-WKg" firstAttribute="trailing" secondItem="CWS-Ki-1AR" secondAttribute="trailing" id="qmS-YJ-f3f"/>
@@ -365,14 +389,6 @@
                                 <state key="normal" title="CancelNow"/>
                                 <connections>
                                     <action selector="cancelNow:" destination="UVW-bl-WyW" eventType="touchUpInside" id="xIX-Mq-M13"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqm-Ht-K8e">
-                                <rect key="frame" x="9" y="413" width="334" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Export Bookings"/>
-                                <connections>
-                                    <action selector="exportBookings:" destination="UVW-bl-WyW" eventType="touchUpInside" id="nBZ-sk-OnP"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -591,7 +607,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ibm-V1-VeB">
-                                <rect key="frame" x="0.0" y="64" width="375" height="540"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContentCell" id="q5Y-kU-eir">
@@ -637,6 +653,28 @@
                                     <outlet property="delegate" destination="eu4-iJ-KRZ" id="pLZ-Tf-okJ"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oq9-h9-7uu">
+                                <rect key="frame" x="0.0" y="564" width="132" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Export Simple">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="exportSimple:" destination="eu4-iJ-KRZ" eventType="touchUpInside" id="AHj-EX-AbH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kjn-1g-ZBO">
+                                <rect key="frame" x="226" y="564" width="149" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="ExportAll">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="exportFull:" destination="eu4-iJ-KRZ" eventType="touchUpInside" id="6EJ-CD-HrV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -646,7 +684,7 @@
                             <constraint firstItem="ibm-V1-VeB" firstAttribute="leading" secondItem="dNx-z0-62h" secondAttribute="leading" id="T0C-M2-Mhq"/>
                             <constraint firstItem="dNx-z0-62h" firstAttribute="trailing" secondItem="3ub-Cm-EOc" secondAttribute="trailing" id="WXD-W0-wWV"/>
                             <constraint firstItem="ibm-V1-VeB" firstAttribute="top" secondItem="GsJ-sQ-wiB" secondAttribute="bottom" id="ZzW-9V-Yfj"/>
-                            <constraint firstItem="dNx-z0-62h" firstAttribute="top" secondItem="ibm-V1-VeB" secondAttribute="bottom" constant="8" symbolic="YES" id="aMN-cs-LTA"/>
+                            <constraint firstItem="dNx-z0-62h" firstAttribute="top" secondItem="ibm-V1-VeB" secondAttribute="bottom" constant="56" id="aMN-cs-LTA"/>
                             <constraint firstItem="3ub-Cm-EOc" firstAttribute="top" secondItem="dNx-z0-62h" secondAttribute="bottom" id="fR4-K4-NCG"/>
                             <constraint firstItem="ibm-V1-VeB" firstAttribute="trailing" secondItem="dNx-z0-62h" secondAttribute="trailing" id="ktS-nP-E3e"/>
                             <constraint firstAttribute="trailing" secondItem="ibm-V1-VeB" secondAttribute="trailing" id="ldO-kG-uvo"/>

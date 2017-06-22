@@ -13,29 +13,7 @@ class CancelViewController: UIViewController {
 
     @IBAction func exportBookings(_ sender: Any) {
         
-        // get the documents folder url
-        let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        // create the destination url for the text file to be saved
-        let fileURL = documentDirectory.appendingPathComponent("file.txt")
-        
-        print("the oath is \(fileURL)")
-        
-        do {
-            // writing to disk
-            try FullData.formattedString.write(to: fileURL, atomically: false, encoding: .utf8)
-            
-            // saving was successful. any code posterior code goes here
-            // reading from disk
-            do {
-                let mytext = try String(contentsOf: fileURL)
-                print(mytext)   // "some text\n"
-            } catch {
-                print("error loading contents of:", fileURL, error)
-            }
-        } catch {
-            print("error writing to url:", fileURL, error)
-        }
-    }//
+    }
 
 
 

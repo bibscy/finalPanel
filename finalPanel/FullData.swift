@@ -42,8 +42,9 @@ struct FullData {
     static var fromDate:Int!
     static var toDate:Int!
     
-    static var theJSONText:String!
+
     static var formattedString:String!
+    static var cleanerString:String!
     
     
 }
