@@ -18,6 +18,8 @@
 		A31B5C811E06ED460090EDB0 /* DetailViewController_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31B5C801E06ED460090EDB0 /* DetailViewController_1.swift */; };
 		A326B4EB1E23F733000E5BD0 /* CancelViewController_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326B4EA1E23F733000E5BD0 /* CancelViewController_1.swift */; };
 		A326B4ED1E265FD3000E5BD0 /* CancelCompleted_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326B4EC1E265FD3000E5BD0 /* CancelCompleted_1.swift */; };
+		A348542D1FD99CA700565543 /* DisbursePayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A348542C1FD99CA700565543 /* DisbursePayment.swift */; };
+		A348542F1FD9D5AF00565543 /* extensionDisbursePayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A348542E1FD9D5AF00565543 /* extensionDisbursePayment.swift */; };
 		A34AAFC11E05E1220076E84A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34AAFC01E05E1220076E84A /* AppDelegate.swift */; };
 		A34AAFC81E05E1220076E84A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A34AAFC71E05E1220076E84A /* Assets.xcassets */; };
 		A34AAFCB1E05E1220076E84A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A34AAFC91E05E1220076E84A /* LaunchScreen.storyboard */; };
@@ -47,6 +49,8 @@
 		A326B4EA1E23F733000E5BD0 /* CancelViewController_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelViewController_1.swift; sourceTree = "<group>"; };
 		A326B4EC1E265FD3000E5BD0 /* CancelCompleted_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelCompleted_1.swift; sourceTree = "<group>"; };
 		A326B4EE1E268585000E5BD0 /* bridging_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bridging_header.h; sourceTree = "<group>"; };
+		A348542C1FD99CA700565543 /* DisbursePayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisbursePayment.swift; sourceTree = "<group>"; };
+		A348542E1FD9D5AF00565543 /* extensionDisbursePayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensionDisbursePayment.swift; sourceTree = "<group>"; };
 		A34AAFBD1E05E1220076E84A /* finalPanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finalPanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A34AAFC01E05E1220076E84A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A34AAFC71E05E1220076E84A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 				A34AAFDA1E05E1C20076E84A /* VC1.swift */,
 				A3065AE41E4A63560027E22B /* SingleBooking */,
 				A34AAFD21E05E1690076E84A /* Main.storyboard */,
+				A348542C1FD99CA700565543 /* DisbursePayment.swift */,
+				A348542E1FD9D5AF00565543 /* extensionDisbursePayment.swift */,
 				A3065AE51E4A63770027E22B /* ALL_Bookings */,
 				A326B4EE1E268585000E5BD0 /* bridging_header.h */,
 				A34FBD2B1EED4FF20005F4F9 /* GoogleService-Info.plist */,
@@ -315,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A31B5C7B1E06EADE0090EDB0 /* VC2.swift in Sources */,
+				A348542D1FD99CA700565543 /* DisbursePayment.swift in Sources */,
 				A34AAFE21E05E1C20076E84A /* VC1.swift in Sources */,
 				A34AAFDE1E05E1C20076E84A /* FullData.swift in Sources */,
 				A3065AEC1E4C26760027E22B /* CancelCompleted.swift in Sources */,
@@ -322,6 +329,7 @@
 				A34AAFE01E05E1C20076E84A /* RescheduleCompleted.swift in Sources */,
 				A31B5C7F1E06ECF10090EDB0 /* RootController_1.swift in Sources */,
 				A3065AF11E4C2ED40027E22B /* RescheduleCompleted_1.swift in Sources */,
+				A348542F1FD9D5AF00565543 /* extensionDisbursePayment.swift in Sources */,
 				A3065AEE1E4C2E470027E22B /* RescheduleViewController_1.swift in Sources */,
 				A326B4EB1E23F733000E5BD0 /* CancelViewController_1.swift in Sources */,
 				A3065AEA1E4C222D0027E22B /* CancelViewController.swift in Sources */,

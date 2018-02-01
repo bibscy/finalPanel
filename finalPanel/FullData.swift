@@ -9,6 +9,54 @@
 import Foundation
 import UIKit
 
+
+
+
+
+
+//display an alert when cancel button is tapped
+func showCustomAlert(customMessage:String, viewController:UIViewController) {
+    
+    let myAlert = UIAlertController(title: "", message: customMessage, preferredStyle: .alert)
+    //add an action (namely a button) to myAlert UIAlertController
+        myAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+         viewController.present(myAlert, animated: true, completion: nil)
+}
+
+
+
+
+class LogError {
+    init() {}
+    
+    func prints(function: String = #function,
+                line:Int = #line,
+                file:String = #file,
+                message: String? = "",
+                code:Int? = 0) {
+        
+        print("\(function): error on line \(line) in \(file) is message: \(String(describing: message)), code: \(String(describing: code))).")
+    }
+}
+
+
+let logError = LogError()
+
+
+
+
+func convertDateStringToTimpeStamp(inputStringDate: String) -> Int {
+    
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+    formatter.date(from: inputStringDate)
+    let stringToDate = formatter.date(from: inputStringDate)
+    let timeStamp = Int(stringToDate!.timeIntervalSince1970)
+    return timeStamp
+}
+
+
+
 struct FullData {
     static  var uid:String!
     static  var finalEmailAddress:String!

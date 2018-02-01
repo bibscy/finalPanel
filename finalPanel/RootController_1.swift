@@ -14,7 +14,7 @@ import FirebaseDatabase
 
 class RootController_1: UITableViewController, UISplitViewControllerDelegate {
     
-    
+     
    
     var customerKey:String! // the customer id for Stripe payments retrieved from Firebase
     
@@ -231,12 +231,10 @@ class RootController_1: UITableViewController, UISplitViewControllerDelegate {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return bookingInfo.count
 }
     

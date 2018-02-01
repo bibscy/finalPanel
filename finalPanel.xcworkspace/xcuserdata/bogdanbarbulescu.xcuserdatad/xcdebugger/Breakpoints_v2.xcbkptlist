@@ -2,4 +2,69 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "finalPanel/DisbursePayment.swift"
+            timestampString = "535287349.112016"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "finalPanel.DisbursePayment.(viewDidLoad () -&gt; ()).(closure #1)"
+                  moduleName = "finalPanel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bogdanbarbulescu/Desktop/finalPanel/finalPanel/DisbursePayment.swift"
+                  timestampString = "538086111.358709"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "157"
+                  endingLineNumber = "157"
+                  offsetFromSymbolStart = "3619">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "finalPanel.DisbursePayment.(viewDidLoad () -&gt; ()).(closure #1).(closure #14)"
+                  moduleName = "finalPanel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bogdanbarbulescu/Desktop/finalPanel/finalPanel/DisbursePayment.swift"
+                  timestampString = "538086111.36066"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "157"
+                  endingLineNumber = "157"
+                  offsetFromSymbolStart = "3782">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "finalPanel.DisbursePayment.(viewDidLoad () -&gt; ()).(closure #1).(closure #15)"
+                  moduleName = "finalPanel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bogdanbarbulescu/Desktop/finalPanel/finalPanel/DisbursePayment.swift"
+                  timestampString = "538086111.362843"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "157"
+                  endingLineNumber = "157"
+                  offsetFromSymbolStart = "3800">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

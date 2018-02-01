@@ -17,7 +17,7 @@ class VC1: UIViewController {
     @IBOutlet weak var toDate: UITextField!
     @IBOutlet weak var enterDataTextField: UITextField!
 
-    var formatter = DateFormatter()
+//    var formatter = DateFormatter()
    
 
 override func viewDidLoad() {
@@ -33,15 +33,15 @@ override func viewDidLoad() {
     
     
 // convert the value from the text field to Date object then convert it to a timestamp
-func convertDate(inputStringDate:String) -> Int {
-    
-    self.formatter.dateFormat = "yyyy-MM-dd HH:mm"
-      self.formatter.date(from: inputStringDate)
-         let stringToDate = self.formatter.date(from: inputStringDate)
-            let timeStamp = Int(stringToDate!.timeIntervalSince1970)
-      return timeStamp
-}
-    
+//func convertDate(inputStringDate:String) -> Int {
+//    
+//    self.formatter.dateFormat = "yyyy-MM-dd HH:mm"
+//      self.formatter.date(from: inputStringDate)
+//         let stringToDate = self.formatter.date(from: inputStringDate)
+//            let timeStamp = Int(stringToDate!.timeIntervalSince1970)
+//      return timeStamp
+//}
+//    
 
 @IBAction func getAllBookings(_ sender: Any) {
     
@@ -50,9 +50,9 @@ func convertDate(inputStringDate:String) -> Int {
     
     if let text = fromDate.text, !text.isEmpty {
         // call convertDate function to convert fromDate & toDate to timstamps
-            FullData.fromDate = self.convertDate(inputStringDate: fromDate.text!)
-                FullData.toDate = self.convertDate(inputStringDate: toDate.text!)
-            print("FullData.toDate is\(self.convertDate(inputStringDate: fromDate.text!))")
+            FullData.fromDate = convertDateStringToTimpeStamp(inputStringDate: fromDate.text!)
+                FullData.toDate = convertDateStringToTimpeStamp(inputStringDate: toDate.text!)
+            print("FullData.toDate is\(convertDateStringToTimpeStamp(inputStringDate: fromDate.text!))")
        
       }
     }
