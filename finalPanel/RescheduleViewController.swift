@@ -130,6 +130,7 @@ if let destViewController = segue.destination as? RescheduleCompleted {
         return FullData.finalTimeStampDateAndTime - timeStampNow
     }
     
+    
     func calculateRescheduleAmount() {
         switch timeLeft {
             

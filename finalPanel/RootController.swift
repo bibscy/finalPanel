@@ -10,210 +10,52 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 import FirebaseAuth
 
-class RootController: UITableViewController, UISplitViewControllerDelegate {
+class RootController: UITableViewController {
     
+    
+    //this property enables us to decide in RootController if we will retrieve the bookings assigned to a User or a Cleaner
+    //bookingOfUserBool is initiated with the value from VC1 when segue
+    var bookingOfUserBool:Bool!
+    
+    
+    //if singleBool == true, getAllBookings for a single user or cleaner entered in the textField in VC1
+    //if singleBool == false, getAllBookings for all users or cleaners based on the date of bookings
+    var singleUidBool:Bool!
     
     var customerKey:String! // the customer id for Stripe customer retrieved from Firebase
     
-    // create a reference to Firebase
-  var dbRef:FIRDatabaseReference!
+    
+  var dbRef:FIRDatabaseReference! // create a reference to Firebase
+    
     var bookingInfo = [FireBaseData]() // this array will hold all bookings for the logged in user
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+         dbRef = FIRDatabase.database().reference()
+            self.getBookings()
+    
+   } // end of viewDidLoad
+    
+    
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
 
-//        //add a right bar button to export the bookings
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Export Bookings", style: .plain, target: self, action: #selector(exportBookings))
-        
-        
-     
-        dbRef = FIRDatabase.database().reference().child("Users")
-      
-        self.splitViewController?.delegate = self
-        self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
-               startObservingDB() //observe the database for value changes
-        
-    
-        
-    } // end of viewDidLoad
-    
-    
-  
-
-    
-    
-    func startObservingDB() {
-
-  dbRef.child(FullData.uid!).observe(.value, with: { (snapshot: FIRDataSnapshot) in
-            
-            // an instance of FireBaseData holding all bookings under currentUid
-            var newBookingInfo = [FireBaseData]()
-         
-//iterate over all children under /FullData.uid! path
-       for customer in snapshot.children {
-        
-          //the customer node starting with cus...
-            let customerObject = customer as! FIRDataSnapshot
-        
-           //customer key
-              self.customerKey = customerObject.key
-                 print("this is the Stripe customer that can be charged \(customerObject.key)")
-        
-   //now iterate over each booking which is located under customerObject in Firebase
-         for booking in customerObject.children {
-            
-            
-           
-            
-   
-             // after each iteration through snapshot.children, create an instance of FireBaseData with  'booking' for the current iteration & assign it to bookingItem
-                var bookingItem = FireBaseData(snapshot: booking as! FIRDataSnapshot)
-            
-            //assign key of the parent to each booking
-            // the key which starts with cus... represents a Stripe Customer which will be used to charge the client in future, rather than charging a card
-                    bookingItem.Key = self.customerKey
-            
-                // append the bookingItem after each iteration to newBookingInfo array
-                newBookingInfo.append(bookingItem)
-            print("new booking was made")
-   
-             } // end of  for booking in myCustomer
-                
-       } // end of  for customer in snapshot.children
-            
-            //assign newBookingInfo to global variable bookingInfo so it can be used globally within the class
-             self.bookingInfo = newBookingInfo
-    
-    // sort the array in place so that the most recent date will appear first
-    self.bookingInfo.sort(by: {(DateAndTimeObject_1,DateAndTimeObject_2) -> Bool in
-
-        DateAndTimeObject_1.TimeStampDateAndTime > DateAndTimeObject_2.TimeStampDateAndTime
-    })
-
-    
-    
-    
-    
-    //1. convert bookingInfo of type FIrebaseData to Array of Dictionaries containing ALL data as in Firebase
-    var originalDictionary = self.bookingInfo.flatMap { $0.toAnyObject() as? [String:String] }
-    print("arrayof originalDictionary is \(originalDictionary)")
-    
-    
-    //loop through all bookings and replace certain key names
-    for (index,var booking) in originalDictionary.enumerated(){
-        
-        for key in booking.keys{
-            
-            switch key {
-                
-            case "SelectedBedRow":
-                let previousValue =  booking.removeValue(forKey: "SelectedBedRow")
-                booking["Number of Beds"] = previousValue
-                originalDictionary[index] = booking
-                
-            case "SelectedBathRow":
-                let previousValue =  booking.removeValue(forKey: "SelectedBathRow")
-                booking["Number of Baths"] = previousValue
-                originalDictionary[index] = booking
-                
-            default: break
-                
-            }
-        }
+        // needed to clear the text in the back navigation:
+        self.navigationItem.title = " "
     }
     
-    print("originalDictionary is \(originalDictionary)")
-    
-    
-    //loop through the array of bookings, take each element, convert it to string and format it
-    var outputString = ""
-    var i = 1
-    for item in originalDictionary{
-        outputString += "Booking \(i) :\n"
-        for key in item.keys{
-            outputString += key + ":" + (item[key] ?? "(no value)") + "\n"
-        }
-        outputString += "\n"
-        i += 1
-        FullData.formattedString = outputString
-        print("outputString is \(outputString)")
-    }
-    
-    
-    
-    
-    
-    
-    // 2. convert bookingInfo of type FIrebaseData to Array of Dictionaries containing ONLY the data that the cleaner needs
-    var cleanerDictionary = self.bookingInfo.flatMap { $0.toStringString() as? [String:String] }
-    
-    
-    
-    
-    //loop through all bookings and replace certain key names
-    for (index,var booking) in cleanerDictionary.enumerated(){
+    override func viewWillAppear(_ animated: Bool) {
         
-        for key in booking.keys{
-            
-            switch key {
-                
-            case "SelectedBedRow":
-                let previousValue =  booking.removeValue(forKey: "SelectedBedRow")
-                booking["Number of Beds"] = previousValue
-                cleanerDictionary[index] = booking
-                
-            case "SelectedBathRow":
-                let previousValue =  booking.removeValue(forKey: "SelectedBathRow")
-                booking["Number of Baths"] = previousValue
-                cleanerDictionary[index] = booking
-                
-            default: break
-                
-            }
-        }
+        super.viewWillAppear(animated)
+        self.navigationItem.title = "RootController"
     }
-    
-    
-    
-    
-    //loop through the array of bookings, take each element, convert it to string and format it
-    var cleanerString = ""
-    var x = 1
-    for item in cleanerDictionary{
-        cleanerString += "Booking \(x) :\n"
-        for key in item.keys{
-            
-            cleanerString += key + ":" + (item[key] ?? "(no value)") + "\n"
-        }
-        cleanerString += "\n"
-        x += 1
-        FullData.cleanerString = cleanerString
-    }
-    print("cleanerString  is \(cleanerString)")
-    
-    
-    
-
-    
-    
-             // reload the data every time FIRDataEventType is triggered by value changes in Database
-              self.tableView.reloadData()
-        }, withCancel: { (Error:Any) in
-            print("Error firebase \(Error)")
-        })
-        
-        //Set the estimatedRowHeight of your table view
-        tableView.estimatedRowHeight = 44.0
-     // Set the rowHeight of your table view to UITableViewAutomaticDimension
-            tableView.rowHeight = UITableViewAutomaticDimension
-    } // end of startObservingDB()
-    // stackoverflow.com/questions/30114483
-    
-    
  
     
 
@@ -233,9 +75,10 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
        
-        var booking = bookingInfo[indexPath.row]
+        let booking = bookingInfo[indexPath.row]
          cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = "Booking# " + booking.BookingNumber + "\n" + booking.DateAndTime + "\n" + booking.PostCode + "\n" + booking.Key
+        cell.textLabel?.text = "Booking# " + booking.BookingNumber + "\n" + booking.DateAndTime + "\n" + booking.PostCode + "\n" + booking.Key + "\n" + "Booking State:" + " "
+            //+ booking.BookingState
 
         
 
@@ -298,7 +141,7 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
     
      //when a row is selected if the identifier of the segue is "ShowDetail" perform segue
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "ShowDetail", sender: self)
+        self.performSegue(withIdentifier: "segueRootViewControllerToDetailViewController", sender: self)
     }
 
     
@@ -309,16 +152,14 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
     // thus the segue from RootViewController to UINavigationController which holds the DetailViewController, takes us directly to DetailViewController
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowDetail" {
+        if segue.identifier == "segueRootViewControllerToDetailViewController" {
             
              // store the indexPath of the row that was selected
             let index = self.tableView.indexPathForSelectedRow! as IndexPath
             
             //This property contains the view controller whose contents should be displayed at the end of the segue.
-            let nav = segue.destination as! UINavigationController
+            let vc = segue.destination as! DetailViewController
             
-            //DetailViewController (namely 'let vc') is currently at index 0 on the navigation stack
-            let vc = nav.viewControllers[0] as! DetailViewController
             
              // depending on the row selected in the tableView assign the objects of a single booking from 'bookingInfo' array to 'bookingSelected' (which is an instance of FireBaseData)
             let bookingSelected = bookingInfo[index.row]
@@ -327,7 +168,7 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
             // vc is the DetailViewController
             // assign the properties from bookingSelected structure to the properties from the DetailViewController
             
-          
+            vc.bookingSelected = bookingSelected
             vc.dateAndTimeReceived = bookingSelected.DateAndTime
             vc.flatNumberReceived = bookingSelected.FlatNumber
             vc.streetAddressReceived = bookingSelected.StreetAddress
@@ -339,6 +180,8 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
             vc.laundryWashReceived = bookingSelected.laundryWash
             vc.interiorWindowsReceived = bookingSelected.interiorWindows
             vc.bookingNumberReceived = bookingSelected.BookingNumber
+        
+           
            
             // assign the booking number for the selected row to a global variable to use it later
             FullData.finalBookingNumber = bookingSelected.BookingNumber
@@ -351,7 +194,7 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
             FullData.finalEmailAddress = bookingSelected.EmailAddress
             FullData.finalStripeCustomerID = bookingSelected.Key
             
-                 FullData.finalAdminBookingStatus = bookingSelected.BookingStatusAdmin
+            FullData.finalAdminBookingStatus = bookingSelected.BookingStatusAdmin
             FullData.finalClientBookingStatus = bookingSelected.BookingStatusClient
             FullData.finalBookingCompleted = bookingSelected.BookingCompleted
             
@@ -390,8 +233,12 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
             
             // if at least one of these values != nil,  in DetailViewController  assign true value to bookingCancelled and in DetailViewController hide Reschedule/Cancel buttons
             
+            
+            //Note** Implement BookingStatus property here
+            
             if bookingSelected.CostToCancelAdmin != nil
                 || bookingSelected.CostToCancelClient != nil {
+                
                 print("bookingSelected.CostToCancelAdmin \(bookingSelected.CostToCancelAdmin)  and \(bookingSelected.CostToCancelClient)")
                 FullData.bookingCancelled = true
             } else {
@@ -404,10 +251,10 @@ class RootController: UITableViewController, UISplitViewControllerDelegate {
         }
     }
     
-    // MARK: - UISplitViewControllerDelegate
-    
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        
-        return true
-    }
+//    // MARK: - UISplitViewControllerDelegate
+//    
+//    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+//        
+//        return true
+//    }
 }

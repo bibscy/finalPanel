@@ -14,9 +14,36 @@ import FirebaseDatabase
 extension DisbursePayment {
     
     
+    //retrieve the profile of cleaner and its fees
+    //after each disbursement fees are saved in /FeesCleaner/ node
+    func readFeesCleaner(callback: @escaping ((_ feesCleaner: FeesCleaner) -> Void)) {
+        
+        
+        guard (FIRAuth.auth()?.currentUser?.uid) != nil  else {
+            logError.prints(message: "user should be logged in before making a request to Firebase")
+            return
+        }
     
-    //retrieve the profile of cleaner and all bookings
-    func startObservingDB(callback: @escaping (( _ bookings: [FireBaseData]?, _ cancelledByArray: [CancelledObject], _ rescheduledByArray: [RescheduledObject] ) -> Void)) {
+        
+        dbRef.child("FeesCleaner").child(self.uidOfTextField!).observeSingleEvent(of: .value, with: { (snapshot: FIRDataSnapshot) in
+            
+            let feesCleanersReceived = FeesCleaner(snapshot: (snapshot.value)! as! FIRDataSnapshot)
+                    callback(feesCleanersReceived)
+            
+        }) { (error:Error) in
+            print(#line, "\(error.localizedDescription)")
+        }
+        
+    }//end of func readFeesCleaner
+    
+    
+    
+    
+    
+    
+    
+    //retrieve all bookings of cleaner
+    func startObservingDB(callback: @escaping (( _ bookings: [FireBaseData]?, _ cancelledByArray: [CancelledObject], _ rescheduledByArray: [RescheduledObject]) -> Void)) {
         
         
         guard let uid = FIRAuth.auth()?.currentUser?.uid  else {
@@ -25,7 +52,7 @@ extension DisbursePayment {
         }
 
         
-        dbRef.child(self.uidOfTextField!).child("bookings").observeSingleEvent(of: .value, with: { (snapshot: FIRDataSnapshot) in
+        dbRef.child("Cleaners").child(self.uidOfTextField!).child("bookings").observeSingleEvent(of: .value, with: { (snapshot: FIRDataSnapshot) in
             
    
             //a cleaner may or may no have bookings reason why we use if instead of guard

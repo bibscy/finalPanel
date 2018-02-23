@@ -94,10 +94,50 @@ struct FullData {
     static var formattedString:String!
     static var cleanerString:String!
     
+    static var bookingOfUserBool:Bool!
+    static var singleUidBool:Bool!
+    
     
 }
 
 
+
+
+
+
+class FullDataActivityIndicator {
+    
+    
+    func show(activityInd:UIActivityIndicatorView,view: UIView, targetViewController: UIViewController) {
+        
+        var activityIndicator = activityInd
+        
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        activityIndicator.backgroundColor = UIColor.gray        //
+        activityIndicator.layer.cornerRadius = 6
+        activityIndicator.center = targetViewController.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        activityIndicator.tag = 948159348
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        print("activityIndicator.tag is \(activityIndicator.tag)")
+    }
+    
+    
+    //hide the activity indicator
+    func hide(view: UIView) {
+        
+        if let activityIndicator = view.viewWithTag(948159348) as? UIActivityIndicatorView {
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+            print("hideActivityIndicator was called in func hideActivityIndicator(view: UIView)")
+            activityIndicator.removeFromSuperview()
+        }
+    }
+    
+}//end of class
 
 
 

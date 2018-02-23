@@ -36,7 +36,7 @@ class RescheduleCompleted: UIViewController {
         FullData.finalAdminBookingStatus = true
         TimeStampBookingRescheduledAdmin = Int(currentDate.timeIntervalSince1970)
         
-        
+        //implement BookingStatus
         params["StripeCustomerID"] = FullData.finalStripeCustomerID //charge the customer rather than card
         params["CostToRescheduleAdmin"] = FullData.finalAmountChargedToReschedule
         params["TimeStampBookingRescheduledAdmin"] = TimeStampBookingRescheduledAdmin
@@ -46,7 +46,7 @@ class RescheduleCompleted: UIViewController {
         params["DateAndTime"] = FullData.finalDateAndTime
         params["TimeStampDateAndTime"] = TimeStampDateAndTime // received from RescheduleViewController
         params["EmailAddress"] = FullData.finalEmailAddress
-}
+    }
     
     
     

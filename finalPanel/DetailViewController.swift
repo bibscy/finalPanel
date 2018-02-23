@@ -6,7 +6,6 @@
 //  Copyright © 2016 Appfish. All rights reserved.
 //
 
-
 import UIKit
 
 class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -17,16 +16,54 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var rescheduleButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    var titles: [String] = ["Date", "Booking#", "Address","EntryInfo","EntryInstructions", "Extras","Notes","BookingCancelled","BookingStatusClient","BookingStatusAdmin","BookingCompleted","PaymentID","CostToCancelAdmin","CostToCancelClient","CostToRescheduleAdmin","CostToRescheduleClient","Total"]
+    //implement BookingStatus here
+    var titles: [String] = ["Date","BookingState","BookingStateTimeStamp", "Booking#", "Address","EntryInfo","EntryInstructions", "Extras","Notes","BookingCancelled","BookingStatusClient","BookingStatusAdmin","BookingCompleted","PaymentID","CostToCancelAdmin","CostToCancelClient","CostToRescheduleAdmin","CostToRescheduleClient","Total"]
     
     var titlesToValues = [String: String]()
  
     @IBAction func reschedule(_ sender: AnyObject) {
     }
     
+    
+    
     @IBAction func cancel(_ sender: Any) {
+        
+        self.performSegue(withIdentifier: "segueDetailToCancelViewController", sender: self)
     }
     
+    
+    @IBAction func reportNoShow(_ sender: Any) {
+        
+         self.performSegue(withIdentifier: "segueToNoShowViewController", sender: self)
+        
+//        if bookingSelected.BookingState == "Active" ||
+//            bookingSelected.BookingState == "Rescheduled" &&
+//            
+//            bookingSelected.BookingCompleted == false {
+//             self.performSegue(withIdentifier: "segueToNoShowViewController", sender: self)
+//        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        switch segue.identifier! {
+            case "segueDetailToCancelViewController":
+                
+                let vc = segue.destination as! CancelViewController
+                vc.bookingSelected = self.bookingSelected
+
+            case "segueToNoShowViewController":
+                
+                let vc = segue.destination as! NoShowViewController
+                vc.bookingSelected = self.bookingSelected
+        default:
+            print("hang on, unhandled case")
+            
+        }
+    }
+    
+    
+ 
     
     @IBAction func exportSimple(_ sender: Any) {
         exportBookingsForCustomerUse()
@@ -38,6 +75,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         exportAllBookingsAsInFireBase()
     }
     
+    var bookingSelected:FireBaseData!
     var dateAndTimeReceived:String!
     var flatNumberReceived:String!
     var streetAddressReceived:String!
@@ -49,11 +87,13 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     var laundryWashReceived:Bool!
     var interiorWindowsReceived:Bool!
     var bookingNumberReceived:String!
+  
+
     var extrasArray = [String]()
     var addressArray = [String]()
     var entryArray = [String]()
     
-    
+    let formatter = DateFormatter()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -79,8 +119,19 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         addressArray.append(self.streetAddressReceived)
         addressArray.append(self.postCodeReceived)
         
+       // "BookingState","BookingStateTimeStamp",
         
+        //implement BookingStatus here
         titlesToValues["Date"] = self.dateAndTimeReceived
+        titlesToValues["BookingState"] = bookingSelected.BookingState ?? ""
+        
+        let date = Date(timeIntervalSince1970: 1518959125.0)
+//        let date = Date(timeIntervalSince1970: (Double(bookingSelected.BookingStateTimeStamp)!)) 
+        formatter.dateFormat = "EEE, dd MMM yyyy HH:mm"
+        //"dd-MM-yyyy HH:mm"
+        let dateString = formatter.string(from: date)
+        titlesToValues["BookingStateTimeStamp"] = dateString
+        
         titlesToValues["Booking#"] = "Booking #" + self.bookingNumberReceived
         titlesToValues["Address"] = addressArray.joined(separator: ",")
         
@@ -188,6 +239,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     func exportAllBookingsAsInFireBase(){
         // get the documents folder url
         let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        
         // create the destination url for the text file to be saved
         let fileURL = documentDirectory.appendingPathComponent("file.txt")
         
