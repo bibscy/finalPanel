@@ -78,24 +78,25 @@ extension NoShowViewController {
         let urlString =  "http://0.0.0.0:8080/noshowascleaner/byadmin"
         
         //this is the amount the cleaner will be recompensated because could not get access to property
+   
         params["amountPaidToCleanerWithoutSuppliesForBooking"] = self.bookingSelected.AmountPaidToCleanerWithoutSuppliesForBooking
         params["bookingStatusAdmin"] = "true"
         params["bookingAmount"] = self.bookingSelected.BookingAmount
-        params["bookingState"] = "Noshow"
+        params["bookingState"] = "NoShow"
         params["bookingStateTimeStamp"] = String(currentTimeStamp)
-        params["commentNoShowByReportedCleaner"] = self.commentNoShow
+        params["commentNoShow"] = self.commentNoShow
         params["amountDebtToCleaner"] = self.bookingSelected.AmountPaidToCleanerWithoutSuppliesForBooking
         params["reasonDebtToCleaner"] = "Cleaner could not access the property on \(self.currentTimeAsString)"
         params["feeAmountChargedToCleaner"] = "0.0"
         params["feeReasonChargedToCleaner"] = "Cleaner could not access the property on \(self.currentTimeAsString)"
         
-        params["costNoShowReportedByCleaner"] = "0.0"
+        params["costNoShow"] = "0.0"
         params["usersUID"] = self.bookingSelected.FirebaseUserID
         params["cleanerUID"] = self.bookingSelected.CleanerUID
         params["userStripeIdCustomer"] = self.bookingSelected.StripeCustomerID
         params["bookingNumber"] = self.bookingSelected.BookingNumber
         params["timeStampBookingClaimed"] = self.bookingSelected.TimeStampBookingClaimed
-        params["timeStampBookingNoShowReportedByCleaner"] = String(currentTimeStamp)
+        params["timeStampBookingNoShow"] = String(currentTimeStamp)
         params["claimed"] = self.bookingSelected.Claimed
         params["dateAndTime"] = self.bookingSelected.DateAndTime
         params["timeStampDateAndTime"] = self.bookingSelected.TimeStampDateAndTime

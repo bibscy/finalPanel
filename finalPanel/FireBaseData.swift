@@ -19,6 +19,7 @@ struct FireBaseData {
     // Create our Firebase Data model
     // get arbitrary data
     
+    var ChangesMadeBy:String!
     var AmountPaidToCleanerWithoutSuppliesForBooking:String! // calculated when cleaner claims booking
     var FirebaseUserID:String!
     var PaymentID:String!
@@ -79,7 +80,7 @@ struct FireBaseData {
     var RateNumberCleaner:String!
     
     var NumberOfHours:String!
-    var AmountPaidToCleanerForBooking:String!
+    var AmountPaidToCleanerForBooking:String! //= numberOfHours * rateCleaner + supplies amount ->see Claim ViewController in Server
     
     
     var ProfitForBooking:String!
@@ -92,6 +93,7 @@ struct FireBaseData {
     
     var objectsUnderCancelledBy:[String: AnyObject]!
     var objectsUnderRescheduledBy:[String: AnyObject]!
+    var objectsUnderNoShowBy: [String:AnyObject]!
     
     
     let Ref:FIRDatabaseReference?
@@ -167,6 +169,9 @@ Key:String = "") {
     
     init(snapshot:FIRDataSnapshot){
         
+        if let changesMadeByContent = (snapshot.value! as? NSDictionary)?["ChangesMadeBy"] as? String {
+            self.ChangesMadeBy = changesMadeByContent
+        }
         
         if let amountPaidToCleanerWithoutSuppliesForBooking =
             (snapshot.value! as? NSDictionary)?["AmountPaidToCleanerWithoutSuppliesForBooking"] as? String {
@@ -239,6 +244,33 @@ Key:String = "") {
             
             //            print("self.objectsUnderRescheduledBy 221 \(self.objectsUnderRescheduledBy)")
 
+        }//end of if let bookingNO
+        
+        
+        
+        
+        //check if a booking was report as NoShow before and if it was assign each object to noShowItems array
+        if ((snapshot.value! as? NSDictionary)?["BookingNumber"] as? String) != nil {
+            
+            var noShowItems = [String: AnyObject]()
+            
+            //each key:value under the bookingNumber
+            for item in snapshot.children {
+                let elementUnderBookingNumber = item as! FIRDataSnapshot
+                if elementUnderBookingNumber.key == "NoShowBy" {
+                    
+                    //iterate through the elements under each timeStamp
+                    for objectUnderTimeStamp in elementUnderBookingNumber.children {
+                        let item = NoShowObject(snapshot: objectUnderTimeStamp as! FIRDataSnapshot)
+                        
+                        noShowItems["\(item.key!)"] = item.toAnyObject()
+                    }
+                }
+            }
+            self.objectsUnderNoShowBy = noShowItems
+            
+            //            print("self.objectsUnderRescheduledBy 221 \(self.objectsUnderRescheduledBy)")
+            
         }//end of if let bookingNO
         
         

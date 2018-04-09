@@ -16,6 +16,7 @@ import FirebaseDatabase
 
 class RescheduledObject {
     
+    var changesMadeBy:String!
     var bookingNumber:String!
     var bookingStatusClient:String? = nil
     var claimed:String!
@@ -39,6 +40,10 @@ class RescheduledObject {
         
         self.key = snapshot.key
         self.ref = snapshot.ref
+        
+        if let changesMadeByContent = (snapshot.value! as? NSDictionary)?["ChangesMadeBy"] as? String {
+            self.changesMadeBy = changesMadeByContent
+        }
         
         if let bookingNumberClientContent = (snapshot.value! as? NSDictionary)?["BookingNumber"] as? String {
             self.bookingNumber = bookingNumberClientContent
@@ -103,6 +108,7 @@ class RescheduledObject {
     func toAnyObject() -> AnyObject {
         var someDict = [String : AnyObject]()
         
+        someDict["ChangesMadeBy"] = self.changesMadeBy as AnyObject?
         someDict["BookingNumber"] = self.bookingNumber as AnyObject?
         someDict["BookingStatusClient"] = self.bookingStatusClient as AnyObject?
         someDict["Claimed"] = self.claimed as AnyObject?
@@ -129,6 +135,8 @@ class RescheduledObject {
 
 
 
+
+
 //CancelledObject holds the data after a booking was cancelled
 //  Cleaners/UID/bookings/bookingNumber/CancelledBy/TimeStamp
 //a booking can be cancelled sucessively by multiple cleaners
@@ -137,7 +145,7 @@ class RescheduledObject {
 
 class CancelledObject {
     
-    
+    var changesMadeBy:String!
     var bookingNumber:String!
     var claimed: String!
     var cleanerUID: String!
@@ -157,6 +165,11 @@ class CancelledObject {
     var ref: FIRDatabaseReference?
     
     init(snapshot: FIRDataSnapshot){
+        
+     
+        if let changesMadeByContent = (snapshot.value! as? NSDictionary)?["ChangesMadeBy"] as? String {
+            self.changesMadeBy = changesMadeByContent
+        }
         
         if let bookingNumberContent = (snapshot.value! as? NSDictionary)?["BookingNumber"] as? String {
             self.bookingNumber = bookingNumberContent
@@ -219,6 +232,7 @@ class CancelledObject {
         
         var someDict = [String : AnyObject]()
         
+        someDict["ChangesMadeBy"] = self.changesMadeBy as AnyObject?
         someDict["BookingNumber"] = self.bookingNumber as AnyObject?
         someDict["Claimed"] = self.claimed as AnyObject?
         someDict["CleanerUID"] = self.cleanerUID as AnyObject?
@@ -245,6 +259,165 @@ class CancelledObject {
 
 
 
+//NoShowObject holds the data after a booking was cancelled
+//  Cleaners/UID/bookings/bookingNumber/NoShowBy/TimeStamp
+// a booking can be reported as noShow only once
+class NoShowObject {
+    
+    var changesMadeBy:String!
+    var bookingState:String!
+    var bookingStateTimeStamp:String!
+    var bookingAmount:String!
+    var commentNoShow:String!
+    var amountDebtToCleaner:String!
+    var reasonDebtToCleaner:String!
+    var feeAmountChargedToCleaner:String!
+    var feeReasonChargedToCleaner:String!
+    var costNoShowReported:String!
+    var usersUID:String!
+    var cleanerUID:String!
+    var bookingNumber:String!
+    var timeStampBookingNoShow:String!
+    var claimed:String!
+    var timeStampBookingClaimed:String!
+    var dateAndTime:String!
+    var timeStampDateAndTime:String!
+    var noShowReportedBy:String!
+    var key: String!
+    var ref: FIRDatabaseReference?
+    
+    init(snapshot:FIRDataSnapshot) {
+        
+        if let changesMadeByContent = (snapshot.value! as? NSDictionary)?["ChangesMadeBy"] as? String {
+            self.changesMadeBy = changesMadeByContent
+        }
+        
+        if let bookingStateContent = (snapshot.value! as? NSDictionary)?["BookingState"] as? String {
+            self.bookingState = bookingStateContent
+        }
+        
+        if let bookingStateTimeStampContent = (snapshot.value! as? NSDictionary)?["BookingStateTimeStamp"] as? String {
+            self.bookingStateTimeStamp = bookingStateTimeStampContent
+        }
+        
+        if let bookingAmountContent = (snapshot.value! as? NSDictionary)?["BookingAmount"] as? String {
+            self.changesMadeBy = bookingAmountContent
+        }
+        
+        if let commentNoShowContent = (snapshot.value! as? NSDictionary)?["CommentNoShow"] as? String {
+            self.commentNoShow = commentNoShowContent
+        }
+        
+        if let amountDebtToCleanerContent = (snapshot.value! as? NSDictionary)?["AmountDebtToCleaner"] as? String {
+            self.amountDebtToCleaner = amountDebtToCleanerContent
+        }
+        
+        if let reasonDebtToCleanerContent = (snapshot.value! as? NSDictionary)?["ReasonDebtToCleaner"] as? String {
+            self.reasonDebtToCleaner = reasonDebtToCleanerContent
+        }
+        
+        
+        if let feeAmountChargedToCleanerContent = (snapshot.value! as? NSDictionary)?["FeeAmountChargedToCleaner"] as? String {
+            self.feeAmountChargedToCleaner = feeAmountChargedToCleanerContent
+        }
+        
+        
+        if let feeReasonChargedToCleanerContent = (snapshot.value! as? NSDictionary)?["FeeReasonChargedToCleaner"] as? String {
+            self.feeReasonChargedToCleaner = feeReasonChargedToCleanerContent
+        }
+        
+        
+        if let costNoShowReportedContent = (snapshot.value! as? NSDictionary)?["CostNoShowReported"] as? String {
+            self.costNoShowReported = costNoShowReportedContent
+        }
+        
+        
+        if let usersUIDContent = (snapshot.value! as? NSDictionary)?["usersUID"] as? String {
+            self.usersUID = usersUIDContent
+        }
+        
+        
+        if let cleanerUIDContent = (snapshot.value! as? NSDictionary)?["CleanerUID"] as? String {
+            self.cleanerUID = cleanerUIDContent
+        }
+        
+        
+        if let bookingNumberContent = (snapshot.value! as? NSDictionary)?["bookingNumber"] as? String {
+            self.bookingNumber = bookingNumberContent
+        }
+        
+        
+        if let timeStampBookingNoShowContent = (snapshot.value! as? NSDictionary)?["TimeStampBookingNoShow"] as? String {
+            self.timeStampBookingNoShow = timeStampBookingNoShowContent
+        }
+        
+        
+        if let claimedContent = (snapshot.value! as? NSDictionary)?["Claimed"] as? String {
+            self.claimed = claimedContent
+        }
+        
+        
+        if let timeStampBookingClaimedContent = (snapshot.value! as? NSDictionary)?["TimeStampBookingClaimed"] as? String {
+            self.timeStampBookingClaimed = timeStampBookingClaimedContent
+        }
+        
+        
+        if let dateAndTimeContent = (snapshot.value! as? NSDictionary)?["DateAndTime"] as? String {
+            self.dateAndTime = dateAndTimeContent
+        }
+        
+        
+        if let timeStampDateAndTimeContent = (snapshot.value! as? NSDictionary)?["TimeStampDateAndTime"] as? String {
+            self.timeStampDateAndTime = timeStampDateAndTimeContent
+        }
+        
+        
+        if let noShowReportedByContent = (snapshot.value! as? NSDictionary)?["NoShowReportedBy"] as? String {
+            self.noShowReportedBy = noShowReportedByContent
+        }
+        
+        self.key = snapshot.key
+        self.ref = nil
+        
+    }//end of init
+    
+    
+    //create convertToAnyObj func
+    
+    func toAnyObject() -> AnyObject {
+       var someDict = [String : AnyObject]()
+        
+        someDict["ChangesMadeBy"] = self.changesMadeBy as AnyObject?
+        someDict["BookingState"] = self.bookingState as AnyObject?
+        someDict["BookingStateTimeStamp"] = self.bookingStateTimeStamp as AnyObject?
+        someDict["BookingAmount"] = self.bookingAmount as AnyObject?
+        someDict["CommentNoShow"] = self.commentNoShow as AnyObject?
+        someDict["AmountDebtToCleaner"] = self.amountDebtToCleaner as AnyObject?
+        someDict["ReasonDebtToCleaner"] = self.reasonDebtToCleaner as AnyObject?
+        someDict["FeeAmountChargedToCleaner"] = self.feeAmountChargedToCleaner as AnyObject?
+        someDict["FeeReasonChargedToCleaner"] = self.feeReasonChargedToCleaner as AnyObject?
+        someDict["CostNoShowReported"] = self.costNoShowReported as AnyObject?
+        someDict["UsersUID"] = self.usersUID as AnyObject?
+        someDict["CleanerUID"] = self.cleanerUID as AnyObject?
+        
+        someDict["BookingNumber"] = self.bookingNumber as AnyObject?
+
+        someDict["TimeStampBookingNoShow"] = self.timeStampBookingNoShow as AnyObject?
+        someDict["Claimed"] = self.claimed as AnyObject?
+        someDict["TimeStampBookingClaimed"] = self.timeStampBookingClaimed as AnyObject?
+        someDict["DateAndTime"] = self.dateAndTime as AnyObject?
+        someDict["TimeStampDateAndTime"] = self.timeStampDateAndTime as AnyObject?
+        someDict["NoShowReportedBy"] = self.noShowReportedBy as AnyObject?
+        
+        return someDict as AnyObject
+    }
+    
+}//end of class NoShowObject
+
+
+
+
+
 
 
 struct DisbursePaymentData {
@@ -266,6 +439,7 @@ struct DisbursePaymentData {
     
     var cancelledBy: [String: AnyObject]?
     var rescheduledBy: [String: AnyObject]?
+    var noShowBy:[String:AnyObject]?
     
     var numberOfHours:String?
     var bookingAmount:String?
@@ -292,8 +466,9 @@ struct DisbursePaymentData {
     
     var balanceCarriedForwardAmount:String!
     var previousBalanceCarriedForward:String!
-    var backgroundCheckFee:String!
-    var statusPaymentBackgroundCheck:String!
+ 
+    var backgroundCheckFeeStatus:String!
+    var backgroundCheckFeeAmount:String!
     var backgroundCheckTimeStampProfileCreated:String!
     
     var bookings:[String: AnyObject]?
@@ -313,13 +488,12 @@ struct DisbursePaymentData {
         totalAmountDebtToCleaner:String? = nil,
         balanceCarriedForwardAmount:String,
         previousBalanceCarriedForward:String,
-        backgroundCheckFee:String,
-        statusPaymentBackgroundCheck:String,
+        backgroundCheckFeeStatus:String,
+        backgroundCheckFeeAmount:String,
         backgroundCheckTimeStampProfileCreated:String,
+       
         
-        bookings:[String: AnyObject]? = nil
-        
-        ) {
+        bookings:[String: AnyObject]? = nil) {
         
         self.payPeriodDateStartDate = payPeriodDateStartDate
         self.payPeriodEndDate = payPeriodEndDate
@@ -335,9 +509,10 @@ struct DisbursePaymentData {
         self.totalAmountDebtToCleaner = totalAmountDebtToCleaner
         self.balanceCarriedForwardAmount = balanceCarriedForwardAmount
         self.previousBalanceCarriedForward = previousBalanceCarriedForward
-        self.backgroundCheckFee = backgroundCheckFee
-        self.statusPaymentBackgroundCheck = statusPaymentBackgroundCheck
+        self.backgroundCheckFeeStatus = backgroundCheckFeeStatus
+        self.backgroundCheckFeeAmount = backgroundCheckFeeAmount
         self.backgroundCheckTimeStampProfileCreated = backgroundCheckTimeStampProfileCreated
+      
         
         self.bookings = bookings
         
@@ -369,7 +544,8 @@ struct DisbursePaymentData {
         ratePriceCleaner:String? = nil,
         rateNumberCleaner:String? = nil,
         cancelledBy:[String:AnyObject]? = nil,
-        rescheduledBy:[String:AnyObject]? = nil
+        rescheduledBy:[String:AnyObject]? = nil,
+        noShowBy:[String:AnyObject]? = nil
         
         ) {
         
@@ -396,6 +572,7 @@ struct DisbursePaymentData {
         self.rateNumberCleaner = rateNumberCleaner
         self.cancelledBy =  cancelledBy
         self.rescheduledBy = rescheduledBy
+        self.noShowBy = noShowBy
         
     }
     
@@ -427,6 +604,7 @@ struct DisbursePaymentData {
         someDict["RateNumberCleaner"] = self.rateNumberCleaner as AnyObject?
         someDict["CancelledBy"] = self.cancelledBy as AnyObject?
         someDict["RescheduledBy"] = self.rescheduledBy as AnyObject?
+        someDict["NoShowBy"] = self.noShowBy as AnyObject?
         
         return someDict as AnyObject
     }
@@ -449,9 +627,9 @@ struct DisbursePaymentData {
         someDict["TotalAmountDebtToCleaner"] = self.totalAmountDebtToCleaner as AnyObject?
         someDict["BalanceCarriedForwardAmount"] = self.balanceCarriedForwardAmount as AnyObject?
         someDict["PreviousBalanceCarriedForward"] = self.previousBalanceCarriedForward as AnyObject?
-        someDict["backgroundCheckFee"] = self.backgroundCheckFee as AnyObject?
-        someDict["statusPaymentBackgroundCheck"] = self.statusPaymentBackgroundCheck as AnyObject?
-        someDict["backgroundCheckTimeStampProfileCreated"] = self.backgroundCheckTimeStampProfileCreated as AnyObject?
+        someDict["BackgroundCheckFeeStatus"] = self.backgroundCheckFeeStatus as AnyObject?
+        someDict["BackgroundCheckFeeAmount"] = self.backgroundCheckFeeAmount as AnyObject?
+        someDict["BackgroundCheckTimeStampProfileCreated"] = self.backgroundCheckTimeStampProfileCreated as AnyObject?
         
         someDict["Bookings"] = self.bookings as AnyObject?
         return  someDict as AnyObject
@@ -468,35 +646,35 @@ struct DisbursePaymentData {
 /*
  /FeesCleaner
  -UID
- -OutstandingFees:
- TimeStampFeesCarriedForward:
- BalanceCarriedForwardAmount:
+  -OutstandingFees:
+      TimeStampFeesCarriedForward:
+      BalanceCarriedForwardAmount:
  
- -TimeStampFeesSaved
- payPeriodTimeStampStartDate
- totalAmountPaidToCleanerForAllBookings
- totalAmountProfitToCleanerForAllBookings
- totalAmountFeesCurrentPayPeriod
- totalAmountDebtToCleaner
- paymentRef
- timeStampDisbursedPayment
+   -TimeStampFeesSaved
+       payPeriodTimeStampStartDate
+       totalAmountPaidToCleanerForAllBookings
+       totalAmountProfitToCleanerForAllBookings
+       totalAmountFeesCurrentPayPeriod
+       totalAmountDebtToCleaner
+       paymentRef
+       timeStampDisbursedPayment
  
- -BackgroundCheck
- TimeStampProfileCreated:
- FeeAmount:
- FeeStatus: true/false
+  -BackgroundCheck
+      TimeStampProfileCreated:
+      FeeAmount:
+      FeeStatus: true/false
  */
 
 //retrieve Fees charged to Cleaner
 struct FeesCleaner {
     
-    var outstandingFees: AnyObject!
-    var timeStampFeesSaved: [String:AnyObject]!
+    var outstandingFees: AnyObject?
+    var timeStampFeesSaved: [AnyObject]?
     var backgroundCheck: AnyObject!
     
     init(
-        outstandingFees: AnyObject,
-        timeStampFeesSaved: [String:AnyObject],
+        outstandingFees: AnyObject? = nil,
+        timeStampFeesSaved: [AnyObject]? = nil,
         backgroundCheck: AnyObject) {
         
         self.outstandingFees = outstandingFees
@@ -507,107 +685,135 @@ struct FeesCleaner {
     
     init(snapshot: FIRDataSnapshot){
         
-        
-        //initialize balanceCarriedForward
-        if (snapshot.value! as? NSDictionary) != nil {
+
             
             //every value under FeesCleaner/UID
             for item in snapshot.children {
-                
-                let elementUnderFeesCleaner = item as! FIRDataSnapshot
+               
+            if let elementUnderFeesCleaner = item as? FIRDataSnapshot {
                 
                 if elementUnderFeesCleaner.key == "OutstandingFees" {
                     
+                   
                     self.outstandingFees = OutstandingFees(snapshot: elementUnderFeesCleaner).convertOutstandingFeesToAnyObject()
+                     print("line 699 print \(self.outstandingFees)")
                     
                 }//end of  if elementUnderFeesCleaner.key
-                
-            }
-        }
+                    
+                }
+         }
         
         
         
-        //initialize timeStamFeesSaved
-        if  (snapshot.value! as? NSDictionary) != nil {
+        
+      //  initialize timeStamFeesSaved
+        if  !((snapshot.value) is NSNull) {
+          
             
-            var objectsUnderTimeStampFeesSaved = [String: AnyObject]()
+            var objectsUnderTimeStampFeesSaved = [AnyObject]()
             
             //every value under FeesCleaner/UID
             for item in snapshot.children {
                 
-                let elementUnderFeesCleaner = item as! FIRDataSnapshot
-                
-                if elementUnderFeesCleaner.key == "TimeStampFeesSaved" {
-                    let timeStampObj = elementUnderFeesCleaner
+                let objectUnderTimeStampFeesSaved = item as! FIRDataSnapshot
+                if objectUnderTimeStampFeesSaved.key == "TimeStampFeesSaved" {
                     
-                    //loop through every object saved under timeStampObj and create an instance of TimeStampFeesSaved with each one of them
-                    for element in timeStampObj.children {
-                        
-                        let elementKey = (element as! FIRDataSnapshot).key //the actual timeStamp
-                        let feesObj = TimeStampFeesSaved(snapshot: element as! FIRDataSnapshot)
-                        
+                    for payment in objectUnderTimeStampFeesSaved.children {
+                        let feeObj = TimeStampFeesSaved(snapshot: payment as! FIRDataSnapshot)
+                       
                         //assign each key:val to objectsUnderTimeStampFeesSaved WHERE
                         //key = time stam when object was saved and
                         //val = an instance of TimeStampFeesSaved
-                        objectsUnderTimeStampFeesSaved[elementKey] = feesObj.convertTimeStampFeesSavedToAnyObject()
+                        let feeObjConverted = feeObj.convertTimeStampFeesSavedToAnyObject()
+                        objectsUnderTimeStampFeesSaved.append(feeObjConverted)
                     }
-                    
                 }
-                
             }
             
             self.timeStampFeesSaved = objectsUnderTimeStampFeesSaved
         }
         
         
+     if !((snapshot.value) is NSNull) {
         
-        //initialize BackgroundCheck
-        if (snapshot.value! as? NSDictionary) != nil {
-            
-            //every value under FeesCleaner/UID
             for item in snapshot.children {
                 
-                let elementUnderFeesCleaner = item as! FIRDataSnapshot
-                
+                if let elementUnderFeesCleaner = item as? FIRDataSnapshot {
+                    
+                    print("line 766")
+                    
+                    print("elementUnderFeesCleaner.key is \(elementUnderFeesCleaner.key)")
+                    
                 if elementUnderFeesCleaner.key == "BackgroundCheck" {
                     
                     self.backgroundCheck = BackgroundCheck(snapshot: elementUnderFeesCleaner).convertBackgroundCheckToAnyObject()
                     
+                    print("self.backgroundCheck line 768 \(self.backgroundCheck)")
+                    
                 }//end of  if elementUnderFeesCleaner.key
                 
             }
-        }
-        
-        
-    }//end of init
+          }
+  
+    }
     
-}//end of FeesCleaner
+    }//end of init
+
+    
+    
+    //convenience method used to convert this struct in AnyObject type in order to write the values to Firebase
+    func convertToAnyObject() -> AnyObject {
+        var someDict = [String : AnyObject]()
+        
+        someDict["OutstandingFees"] = self.outstandingFees as AnyObject?
+        someDict["TimeStampFeesSaved"] = self.timeStampFeesSaved as AnyObject?
+        someDict["BackgroundCheck"] = self.backgroundCheck as AnyObject?
+        
+        
+        return someDict as AnyObject
+    }
+    
+  }//end of FeesCleaner
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+//ledger with all fees charged to cleaner and other meta data 
 struct TimeStampFeesSaved {
     
-    var payPeriodTimeStampStartDate:String!
-    var totalAmountPaidToCleanerForAllBookings:String!
-    var totalAmountProfitToCleanerForAllBookings:String!
-    var totalAmountFeesCurrentPayPeriod:String!
-    var totalAmountDebtToCleaner:String!
-    var paymentRef:String!
-    var timeStampDisbursedPayment:String!
-    var balanceCarriedForwardAmount:String!
-    var previousBalanceCarriedForward:String!
+    var payPeriodTimeStampStartDate:String?
+    var totalAmountPaidToCleanerForAllBookings:String?
+    var totalAmountProfitToCleanerForAllBookings:String?
+    var totalAmountFeesCurrentPayPeriod:String?
+    var totalAmountDebtToCleaner:String?
+    var paymentRef:String?
+    var timeStampDisbursedPayment:String?
+    var balanceCarriedForwardAmount:String?
+    var previousBalanceCarriedForward:String?
+    var backgroundCheckFeeStatus:String?
     
     init(
-        payPeriodTimeStampStartDate:String,
-        totalAmountPaidToCleanerForAllBookings:String,
-        totalAmountProfitToCleanerForAllBookings:String,
-        totalAmountFeesCurrentPayPeriod:String,
-        totalAmountDebtToCleaner:String,
-        paymentRef:String,
-        timeStampDisbursedPayment:String,
-        balanceCarriedForwardAmount:String,
-        previousBalanceCarriedForward:String) {
+        payPeriodTimeStampStartDate:String? = nil,
+        totalAmountPaidToCleanerForAllBookings:String? = nil,
+        totalAmountProfitToCleanerForAllBookings:String? = nil,
+        totalAmountFeesCurrentPayPeriod:String? = nil,
+        totalAmountDebtToCleaner:String? = nil,
+        paymentRef:String? = nil,
+        timeStampDisbursedPayment:String? = nil,
+        balanceCarriedForwardAmount:String? = nil,
+        previousBalanceCarriedForward:String? = nil,
+        backgroundCheckFeeStatus:String? = nil) {
         
         self.payPeriodTimeStampStartDate = payPeriodTimeStampStartDate
         self.totalAmountPaidToCleanerForAllBookings = totalAmountPaidToCleanerForAllBookings
@@ -618,6 +824,7 @@ struct TimeStampFeesSaved {
         self.timeStampDisbursedPayment = timeStampDisbursedPayment
         self.balanceCarriedForwardAmount = balanceCarriedForwardAmount
         self.previousBalanceCarriedForward = previousBalanceCarriedForward
+        self.backgroundCheckFeeStatus = backgroundCheckFeeStatus //this property is only initialized so we can write in the database
         
     }//end of init
     
@@ -661,6 +868,12 @@ struct TimeStampFeesSaved {
             self.previousBalanceCarriedForward = previousBalanceCarriedForwardContent
         }
         
+        if let backgroundCheckFeeStatusContent = (snapshot.value! as? NSDictionary)?["BackgroundCheckFeeStatus"] as? String {
+            self.backgroundCheckFeeStatus = backgroundCheckFeeStatusContent
+        }
+        
+        
+        
     }//end of init
     
     
@@ -688,13 +901,13 @@ struct TimeStampFeesSaved {
 
 struct OutstandingFees {
     
-    var timeStampFeesCarriedForward:String!
-    var balanceCarriedForwardAmount:String!
-    var previousBalanceCarriedForward:String!
+    var timeStampFeesCarriedForward:String?
+    var balanceCarriedForwardAmount:String?
+    var previousBalanceCarriedForward:String?
     
-    init(timeStampFeesCarriedForward:String,
-         balanceCarriedForwardAmount:String,
-         previousBalanceCarriedForward:String) {
+    init(timeStampFeesCarriedForward:String? = nil,
+         balanceCarriedForwardAmount:String? = nil,
+         previousBalanceCarriedForward:String? = nil) {
         
         self.timeStampFeesCarriedForward = timeStampFeesCarriedForward
         self.balanceCarriedForwardAmount = balanceCarriedForwardAmount
@@ -731,9 +944,10 @@ struct OutstandingFees {
         return someDict as AnyObject
     }
     
-    
-    
 }//end of struct OutstandingFees
+
+
+
 
 
 
@@ -744,9 +958,14 @@ struct BackgroundCheck {
     var FeeAmount:String!
     var FeeStatus: String!
     
-    init(FeeStatus: String) {
+    init(TimeStampProfileCreated:String! = nil,
+         FeeAmount:String! = nil,
+         FeeStatus: String! = nil) {
         
+        self.TimeStampProfileCreated = TimeStampProfileCreated
+        self.FeeAmount = FeeAmount
         self.FeeStatus = FeeStatus
+        
     }//end of init
     
     
@@ -782,6 +1001,14 @@ struct BackgroundCheck {
         
         return someDict as AnyObject
     }
+    
+    
+    func convertBackgroundCheckFeeStatusToAnyObject() -> AnyObject {
+        var someDict = [String : AnyObject]()
+        someDict["FeeStatus"] = self.FeeStatus as AnyObject?
+        return someDict as AnyObject
+    }
+    
     
 }//end of struct BackgroundCheck
 

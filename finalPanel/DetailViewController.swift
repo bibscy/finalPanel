@@ -16,8 +16,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var rescheduleButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    //implement BookingStatus here
-    var titles: [String] = ["Date","BookingState","BookingStateTimeStamp", "Booking#", "Address","EntryInfo","EntryInstructions", "Extras","Notes","BookingCancelled","BookingStatusClient","BookingStatusAdmin","BookingCompleted","PaymentID","CostToCancelAdmin","CostToCancelClient","CostToRescheduleAdmin","CostToRescheduleClient","Total"]
+    //implement BookingStatus here "Claimed"
+    var titles: [String] = ["Date","BookingState","Claimed","BookingCompleted", "BookingStateTimeStamp", "Booking#", "Address","EntryInfo","EntryInstructions", "Extras","Notes","BookingCancelled","BookingStatusClient","BookingStatusAdmin","PaymentID","CostToCancelAdmin","CostToCancelClient","CostToRescheduleAdmin","CostToRescheduleClient","Total"]
     
     var titlesToValues = [String: String]()
  
@@ -66,13 +66,13 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
  
     
     @IBAction func exportSimple(_ sender: Any) {
-        exportBookingsForCustomerUse()
+//        exportBookingsForCustomerUse()
     }
     
     
     @IBAction func exportFull(_ sender: Any) {
         
-        exportAllBookingsAsInFireBase()
+//        exportAllBookingsAsInFireBase()
     }
     
     var bookingSelected:FireBaseData!
@@ -124,6 +124,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         //implement BookingStatus here
         titlesToValues["Date"] = self.dateAndTimeReceived
         titlesToValues["BookingState"] = bookingSelected.BookingState ?? ""
+        titlesToValues["Claimed"] = bookingSelected.Claimed ?? ""
         
         let date = Date(timeIntervalSince1970: 1518959125.0)
 //        let date = Date(timeIntervalSince1970: (Double(bookingSelected.BookingStateTimeStamp)!)) 
@@ -226,6 +227,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         return 64
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContentCell")
         (cell?.contentView.viewWithTag(1) as? UILabel)?.text = titles[indexPath.row]
@@ -236,59 +238,59 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     
     
 
-    func exportAllBookingsAsInFireBase(){
-        // get the documents folder url
-        let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        
-        // create the destination url for the text file to be saved
-        let fileURL = documentDirectory.appendingPathComponent("file.txt")
-        
-        print("the path is \(fileURL)")
-        
-        do {
-            // writing to disk
-            try FullData.formattedString.write(to: fileURL, atomically: false, encoding: .utf8)
-            
-            // saving was successful. any code posterior code goes here
-            // reading from disk
-            do {
-                let mytext = try String(contentsOf: fileURL)
-                print(mytext)   // "some text\n"
-            } catch {
-                print("error loading contents of:", fileURL, error)
-            }
-        } catch {
-            print("error writing to url:", fileURL, error)
-        }
-    }
+//    func exportAllBookingsAsInFireBase(){
+//        // get the documents folder url
+//        let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+//        
+//        // create the destination url for the text file to be saved
+//        let fileURL = documentDirectory.appendingPathComponent("file.txt")
+//        
+//        print("the path is \(fileURL)")
+//        
+//        do {
+//            // writing to disk
+//            try FullData.formattedString.write(to: fileURL, atomically: false, encoding: .utf8)
+//            
+//            // saving was successful. any code posterior code goes here
+//            // reading from disk
+//            do {
+//                let mytext = try String(contentsOf: fileURL)
+//                print(mytext)   // "some text\n"
+//            } catch {
+//                print("error loading contents of:", fileURL, error)
+//            }
+//        } catch {
+//            print("error writing to url:", fileURL, error)
+//        }
+//    }
     
     
     
     
-    func exportBookingsForCustomerUse(){
-       // get the documents folder url
-       let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-      // create the destination url for the text file to be saved
-       let fileURL = documentDirectory.appendingPathComponent("file.txt")
-    
-       print("the path is \(fileURL)")
-    
-       do {
-       // writing to disk
-       try FullData.cleanerString.write(to: fileURL, atomically: false, encoding: .utf8)
-    
-       // saving was successful. any code posterior code goes here
-        // reading from disk
-        do {
-         let mytext = try String(contentsOf: fileURL)
-           print(mytext)   // "some text\n"
-         } catch {
-             print("error loading contents of:", fileURL, error)
-          }
-        } catch {
-          print("error writing to url:", fileURL, error)
-        }
-     }
+//    func exportBookingsForCustomerUse(){
+//       // get the documents folder url
+//       let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+//      // create the destination url for the text file to be saved
+//       let fileURL = documentDirectory.appendingPathComponent("file.txt")
+//    
+//       print("the path is \(fileURL)")
+//    
+//       do {
+//       // writing to disk
+//       try FullData.cleanerString.write(to: fileURL, atomically: false, encoding: .utf8)
+//    
+//       // saving was successful. any code posterior code goes here
+//        // reading from disk
+//        do {
+//         let mytext = try String(contentsOf: fileURL)
+//           print(mytext)   // "some text\n"
+//         } catch {
+//             print("error loading contents of:", fileURL, error)
+//          }
+//        } catch {
+//          print("error writing to url:", fileURL, error)
+//        }
+//     }
     
 } //end of class
 

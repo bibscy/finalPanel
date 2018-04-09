@@ -107,8 +107,10 @@ class CancelViewController: UIViewController {
     
     @IBAction func cancelAsCleaner(_ sender: Any) {
         
-        guard bookingSelected.BookingState == "Active" || bookingSelected.BookingState == "Reschedulled" && bookingSelected.Claimed == "true"  else  {
-            print("bookingState should be Active or Reschedulled and Claimed == true so that it can be cancel on behalf of cleaner")
+        guard (bookingSelected.BookingState == "Active" || bookingSelected.BookingState == "Reschedulled") && bookingSelected.Claimed == "true"  else  {
+            let message = "bookingState should be Active or Reschedulled and Claimed == true so that it can be cancel on behalf of cleaner on line \(#line)"
+            showCustomAlert(customMessage: message, viewController: self)
+                print(message)
               return
         }
         

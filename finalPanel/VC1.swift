@@ -20,16 +20,26 @@ class VC1: UIViewController {
 //    var formatter = DateFormatter()
    
 //this property enables us to decide in RootController if we will retrieve the bookings assigned to a User or a Cleaner and also show/hide buttons in next controllers
+    //User: true, Cleaner: false
     var bookingOfUserBool:Bool!
     
-override func viewDidLoad() {
+    //if singleBool == true, getAllBookings for a single user or cleaner entered in the textField in VC1
+    //if singleBool == false, getAllBookings for all users or cleaners based on a date range selected in VC1
+    var singleUidBool:Bool!
+    
+  override func viewDidLoad() {
         super.viewDidLoad()
-}
+  }
+    
+    
+    
+    @IBAction func disbursePayment(_ sender: Any) {
+        self.performSegue(withIdentifier: "segueFromVC1ToDisbursePayment", sender: self)
+    }
+    
     
     
     //get a single booking object with the uid value obtained from firebase
-
-
     @IBAction func getBookingsSingleUser(_ sender: Any) {
 
         // assign the uid from textField to var currentUid
@@ -37,6 +47,7 @@ override func viewDidLoad() {
         self.bookingOfUserBool = true
         FullData.bookingOfUserBool = self.bookingOfUserBool
         FullData.singleUidBool = true
+        self.singleUidBool = true
         self.performSegue(withIdentifier: "segueToRootController", sender: self)
     }
     
@@ -51,6 +62,7 @@ override func viewDidLoad() {
         self.bookingOfUserBool = false
          FullData.bookingOfUserBool = self.bookingOfUserBool
          FullData.singleUidBool = true
+         self.singleUidBool = true
          self.performSegue(withIdentifier: "segueToRootController", sender: self)
     }
     
@@ -62,6 +74,9 @@ override func viewDidLoad() {
         case "segueToRootController":
             let rootController = segue.destination as! RootController
             rootController.bookingOfUserBool = self.bookingOfUserBool
+            rootController.singleUidBool = self.singleUidBool
+        case "segueFromVC1ToDisbursePayment":
+            break
         default:
             print("hang on, unhandled case")
         }
@@ -96,6 +111,7 @@ override func viewDidLoad() {
         self.bookingOfUserBool = true
         FullData.bookingOfUserBool = self.bookingOfUserBool
         FullData.singleUidBool = false
+        self.singleUidBool = false
         self.performSegue(withIdentifier: "segueToRootController", sender: self)
     }
     
@@ -105,6 +121,7 @@ override func viewDidLoad() {
     
 //get all bookings of all Cleaners
     @IBAction func getAllBookingsOfCleaners(_ sender: Any) {
+        
         guard let _ = fromDate.text else { return }
         guard let _ = toDate.text else { return }
         
@@ -114,6 +131,7 @@ override func viewDidLoad() {
         self.bookingOfUserBool = false
         FullData.bookingOfUserBool = self.bookingOfUserBool
         FullData.singleUidBool = false
+        self.singleUidBool = false
         self.performSegue(withIdentifier: "segueToRootController", sender: self)
     }
     

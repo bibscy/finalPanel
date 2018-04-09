@@ -22,13 +22,14 @@ class RootController: UITableViewController {
     
     
     //if singleBool == true, getAllBookings for a single user or cleaner entered in the textField in VC1
+    
     //if singleBool == false, getAllBookings for all users or cleaners based on the date of bookings
     var singleUidBool:Bool!
     
     var customerKey:String! // the customer id for Stripe customer retrieved from Firebase
     
     
-  var dbRef:FIRDatabaseReference! // create a reference to Firebase
+  var dbRef: FIRDatabaseReference! // create a reference to Firebase
     
     var bookingInfo = [FireBaseData]() // this array will hold all bookings for the logged in user
     
@@ -38,6 +39,9 @@ class RootController: UITableViewController {
         
          dbRef = FIRDatabase.database().reference()
             self.getBookings()
+        
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 177
     
    } // end of viewDidLoad
     
@@ -77,61 +81,13 @@ class RootController: UITableViewController {
        
         let booking = bookingInfo[indexPath.row]
          cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = "Booking# " + booking.BookingNumber + "\n" + booking.DateAndTime + "\n" + booking.PostCode + "\n" + booking.Key + "\n" + "Booking State:" + " "
+        cell.textLabel?.text = "Booking# " + booking.BookingNumber + "\n" + booking.DateAndTime + "\n" + booking.PostCode + "\n" + "Booking State:" + booking.BookingState + "\n" + "Booking Claimed:" + booking.Claimed
             //+ booking.BookingState
 
-        
 
-        
-        
-        print("cellForRowAt was called")
-       
-        //Cancelled bookings by user  Brown color
-        
-        if booking.CostToCancelClient != nil {
-            print("booking.CostToCancelClient line 250 \(booking.CostToCancelClient)")
-            cell.contentView.backgroundColor = .brown
-            //booking.CostToCancelClient = nil
-            
-        } else if
-            //Cancelled by Admin   Gray color
-            booking.CostToCancelAdmin != nil {
-            cell.contentView.backgroundColor = UIColor.gray
-            //booking.CostToCancelAdmin = nil
-            
-        } else if
-            //Cancelled by Client   Gray color
-            booking.CostToCancelClient != nil {
-            cell.contentView.backgroundColor = UIColor.gray
-            //booking.CostToCancelClient = nil
-            
-            
-            
-        } else if
-            //Rescheduled bookings  Admin   blue color
-            booking.CostToRescheduleAdmin != nil {
-            cell.contentView.backgroundColor = .blue
-            //booking.CostToRescheduleAdmin = nil
-            
-        } else if
-            //Rescheduled bookings  Client   blue color
-            booking.CostToRescheduleClient != nil {
-            cell.contentView.backgroundColor = .blue
-            //booking.CostToRescheduleClient = nil
-            
-            
-        } else if
-            
-            //Active bookings     Clear color
-            booking.CostToCancelAdmin == nil || booking.CostToCancelClient == nil {
-            print("booking number 244 is \(booking.BookingNumber)")
-            print("CostToCancelAdmin line 248 \(booking.CostToCancelAdmin), CostToCancelClient \(booking.CostToCancelClient) ")
-            cell.backgroundColor = .clear
-            
-        } else {
-            // if none of the cases above is met, Orange color
-            cell.contentView.backgroundColor = UIColor.orange
-        }
+                  // if none of the cases above is met, Orange color
+//            cell.contentView.backgroundColor = UIColor.orange
+   
         
         return cell
         
@@ -231,30 +187,10 @@ class RootController: UITableViewController {
             
            
             
-            // if at least one of these values != nil,  in DetailViewController  assign true value to bookingCancelled and in DetailViewController hide Reschedule/Cancel buttons
-            
-            
-            //Note** Implement BookingStatus property here
-            
-            if bookingSelected.CostToCancelAdmin != nil
-                || bookingSelected.CostToCancelClient != nil {
-                
-                print("bookingSelected.CostToCancelAdmin \(bookingSelected.CostToCancelAdmin)  and \(bookingSelected.CostToCancelClient)")
-                FullData.bookingCancelled = true
-            } else {
-                FullData.bookingCancelled = false
-       }
-
             
             //after all tasks above have been completed, deselect row and segue to DetailViewController
             self.tableView.deselectRow(at: index, animated: true)
         }
     }
     
-//    // MARK: - UISplitViewControllerDelegate
-//    
-//    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-//        
-//        return true
-//    }
 }

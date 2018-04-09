@@ -104,40 +104,41 @@ struct FullData {
 
 
 
-
 class FullDataActivityIndicator {
     
+    var activityIn = UIActivityIndicatorView()
     
-    func show(activityInd:UIActivityIndicatorView,view: UIView, targetViewController: UIViewController) {
+    func show(activityInd:UIActivityIndicatorView = UIActivityIndicatorView(), view: UIView, targetViewController: UIViewController) {
         
-        var activityIndicator = activityInd
         
-        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        activityIndicator.backgroundColor = UIColor.gray        //
-        activityIndicator.layer.cornerRadius = 6
-        activityIndicator.center = targetViewController.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        activityIndicator.tag = 948159348
+        self.activityIn = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        self.activityIn.backgroundColor = UIColor.gray        //
+        self.activityIn.layer.cornerRadius = 6
+        self.activityIn.center = targetViewController.view.center
+        self.activityIn.hidesWhenStopped = true
+        self.activityIn.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        self.activityIn.tag = 948159348
         UIApplication.shared.beginIgnoringInteractionEvents()
-        view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
-        print("activityIndicator.tag is \(activityIndicator.tag)")
+        view.addSubview(self.activityIn)
+        self.activityIn.startAnimating()
+        print("activityIndicator.tag is \(self.activityIn.tag)")
     }
     
     
     //hide the activity indicator
     func hide(view: UIView) {
         
-        if let activityIndicator = view.viewWithTag(948159348) as? UIActivityIndicatorView {
-            activityIndicator.stopAnimating()
+        if let activityIn = view.viewWithTag(948159348) as? UIActivityIndicatorView {
+            activityIn.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
             print("hideActivityIndicator was called in func hideActivityIndicator(view: UIView)")
-            activityIndicator.removeFromSuperview()
+            activityIn.removeFromSuperview()
         }
     }
     
+    
 }//end of class
+
 
 
 

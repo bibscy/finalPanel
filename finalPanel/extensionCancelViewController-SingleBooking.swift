@@ -24,10 +24,10 @@ extension CancelViewController {
             // cancel less than 2 hours before booking
             //Refund 0
             //the cost of cancelling = FullData.finalCancelAmount
-            FullData.finalCancelAmount = FullData.finalBookingAmount
+            FullData.finalCancelAmount = bookingSelected.AmountPaidToCleanerWithoutSuppliesForBooking
             // cancel and process no refund
             FullData.finalAmountRefunded = "0"
-            label.text = "You are cancelling less than 2 hours before booking. The full booking amount \(FullData.finalBookingAmount) will be charged to cancel this booking."
+            label.text = "You are cancelling less than 2 hours before booking. The full booking amount \(FullData.finalBookingAmount!) will be charged to cancel this booking."
             //alert message for UIAlertController to be displayed
             alertMessage = label.text
             
@@ -43,7 +43,7 @@ extension CancelViewController {
             FullData.finalCancelAmount = "10"
             FullData.finalAmountRefunded = String(amountRefunded)
             
-            label.text = "You are cancelling 2-24 hours before booking. \(FullData.finalCancelAmount) will be charged to cancel this booking. We will refund \(FullData.finalAmountRefunded)."
+            label.text = "You are cancelling 2-24 hours before booking. \(FullData.finalCancelAmount!) will be charged to cancel this booking. We will refund \(FullData.finalAmountRefunded!)."
             alertMessage = label.text
             
             
@@ -149,6 +149,15 @@ extension CancelViewController {
         params["FirebaseUserID"] = FullData.finalFirebaseUserID
         params["BookingNumber"] = FullData.finalBookingNumber
         params["BookingStatusAdmin"] = "true"
+        
+        if bookingSelected.CleanerUID != nil  {
+            
+            params["AmountDebtToCleaner"] = FullData.finalCancelAmount!
+            params["ReasonDebtToCleaner"] = "Booking cancelled by Customer \(self.timeLeftUntilBookingStart!) before booking start time"
+            params["FeeAmountChargedToCleaner"] = "0"
+            params["FeeReasonChargedToCleaner"] = "Booking cancelled by Customer \(self.timeLeftUntilBookingStart!) before booking start time"
+        }
+        
             return params
         
     }//end of createParamsToCancelAsAdminOnBehalfOfUser()
@@ -195,9 +204,9 @@ extension CancelViewController {
         params["timeStampBookingClaimed"] = self.bookingSelected.TimeStampBookingClaimed
         params["timeStampBookingCancelledByCleaner"] = String(timeStampNow)
         params["AmountDebtToCleaner"] = "0"
-        params["ReasonDebtToCleaner"] = "Booking cancelled by cleaner \(self.timeLeftUntilBookingStart) before booking start time"
+        params["ReasonDebtToCleaner"] = "Booking cancelled by cleaner \(self.timeLeftUntilBookingStart!) before booking start time"
         params["FeeAmountChargedToCleaner"] = FullData.finalCancelAmount
-        params["FeeReasonChargedToCleaner"] = "Booking cancelled by cleaner \(self.timeLeftUntilBookingStart) before booking start time"
+        params["FeeReasonChargedToCleaner"] = "Booking cancelled by cleaner \(self.timeLeftUntilBookingStart!) before booking start time"
         params["CostToCancelByCleaner"] = FullData.finalCancelAmount
         params["claimed"] = self.bookingSelected.Claimed
         params["dateAndTime"] = self.bookingSelected.DateAndTime

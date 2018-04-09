@@ -6,6 +6,8 @@
 //  Copyright © 2016 Appfish. All rights reserved.
 //
 
+//Reschedule as admin is not implemented in server
+
 import UIKit
 import Foundation
 
