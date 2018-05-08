@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DGActivityIndicatorView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,7 +42,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>06D2A558464AFBDEDC4EC30A8D511ECF</key>
+		<key>0E6D5DAF11F01D104B70190A745C63AD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,17 +52,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3E7F60ACFD35B01897A84C7AC1343351</key>
+		<key>2261FCF6B9D39CADE4AFEE68FDBB6EE7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3814077B60A225441E135CD435F07186</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>43FDD91EB08B8FDE861F16FF1C4898AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A4A56F854ACE22CCCA3D70CBFE67350F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

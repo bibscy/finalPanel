@@ -11,6 +11,8 @@ pod 'Firebase/Database'
 pod 'Firebase/Auth'
 pod 'Stripe'
 pod 'Alamofire'
+pod 'Firebase/Storage'
+pod 'DGActivityIndicatorView'
 
 end
 

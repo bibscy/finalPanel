@@ -12,8 +12,6 @@ import UIKit
 
 
 
-
-
 //display an alert when cancel button is tapped
 func showCustomAlert(customMessage:String, viewController:UIViewController) {
     
