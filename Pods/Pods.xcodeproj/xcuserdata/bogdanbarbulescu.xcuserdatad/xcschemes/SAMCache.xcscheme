@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '6B184EA3A19015D623180049BCC6A356'
-               BlueprintName = 'Stripe'
+               BlueprintIdentifier = '61503313CD275FE5D5C9B005FBBDBD8B'
+               BlueprintName = 'SAMCache'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Stripe.framework'>
+               BuildableName = 'SAMCache.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

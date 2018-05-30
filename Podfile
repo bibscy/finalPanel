@@ -13,6 +13,7 @@ pod 'Stripe'
 pod 'Alamofire'
 pod 'Firebase/Storage'
 pod 'DGActivityIndicatorView'
+pod 'SAMCache'
 
 end
 

@@ -70,6 +70,13 @@ extension CleanerProfile {
 
 
 
+//enable the the programmer to compare two objects of type CleanerProfile
+extension CleanerProfile:Equatable { }
+
+func ==(lhs: CleanerProfile,rhs: CleanerProfile) -> Bool {
+    return lhs.cleanerUID == rhs.cleanerUID
+}
+
 
 
 

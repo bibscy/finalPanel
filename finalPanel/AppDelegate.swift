@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if error != nil {
                 
                 print("line 26 AppDelegate \(String(describing: error?.localizedDescription))")
-            }
+            }           
         })
 
 //set Stripe test key

@@ -15,6 +15,7 @@ enum DatabaseReference {
     
     case root
     case cleanersProfile
+    case cleanerProfileNested(uid: String)
     
     
 //return root ref 
@@ -27,6 +28,7 @@ enum DatabaseReference {
             switch self {
             case .root: return ""
             case .cleanersProfile: return "CleanersProfile"
+            case .cleanerProfileNested(let uid): return "Cleaners/\(uid)/profile/cleanerProfile"
             }
         }
     
